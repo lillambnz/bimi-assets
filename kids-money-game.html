@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Master - Learn to Get Rich!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .game-area {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .scenario {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 3px solid #667eea;
+        }
+
+        .scenario h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .scenario-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .choices {
+            display: grid;
+            gap: 15px;
+        }
+
+        .choice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1.1em;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .choice:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .feedback {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #38ef7d;
+        }
+
+        .feedback.bad {
+            border-left-color: #f45c43;
+        }
+
+        .feedback h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .feedback p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(56, 239, 125, 0.5);
+        }
+
+        .money-tip {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #ff9a56;
+        }
+
+        .money-tip h4 {
+            color: #d4543e;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .achievement {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-size: 1.1em;
+            text-align: center;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            height: 100%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .complete-screen {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .complete-screen h2 {
+            font-size: 3em;
+            color: #38ef7d;
+            margin-bottom: 20px;
+        }
+
+        .final-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .final-stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .final-stat-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .final-stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .scenario h2 {
+                font-size: 1.3em;
+            }
+
+            .scenario-text {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Money Master Game</h1>
+        <p class="subtitle">Learn How to Build Wealth Like a Pro!</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress" style="width: 0%">Level <span id="level">1</span>/10</div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">💵 Money</div>
+                <div class="stat-value" id="money">$1000</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">📊 Financial IQ</div>
+                <div class="stat-value" id="iq">50</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">⭐ Score</div>
+                <div class="stat-value" id="score">0</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-label">🏆 Level</div>
+                <div class="stat-value" id="levelDisplay">1</div>
+            </div>
+        </div>
+
+        <div id="gameArea" class="game-area"></div>
+    </div>
+
+    <script>
+        let gameState = {
+            money: 1000,
+            iq: 50,
+            score: 0,
+            level: 0,
+            totalLevels: 10
+        };
+
+        const scenarios = [
+            {
+                title: "🎮 Your First Decision",
+                text: "You got $50 for your birthday! Your friend wants you to buy the new video game that everyone's playing. What do you do?",
+                choices: [
+                    {
+                        text: "💰 Save it all in your piggy bank for something bigger later",
+                        money: 50,
+                        iq: 10,
+                        score: 100,
+                        feedback: "Smart move! You're thinking long-term. Saving lets you buy bigger, better things later. That's how rich people think!",
+                        tip: "The Rule of Delayed Gratification: Wait for bigger rewards instead of small instant ones."
+                    },
+                    {
+                        text: "🎯 Save $30, spend $20 on something fun",
+                        money: 30,
+                        iq: 8,
+                        score: 80,
+                        feedback: "Great balance! You're saving most while still enjoying some. This is called the 60-40 rule - save more than you spend!",
+                        tip: "Smart spenders follow the 70-30 or 60-40 rule: save/invest 60-70%, spend 30-40%."
+                    },
+                    {
+                        text: "🎮 Buy the game - you can always get more money later",
+                        money: -50,
+                        iq: -5,
+                        score: 20,
+                        feedback: "Oops! Now you have no money saved. Games are fun, but they don't help you build wealth. Next time, think about saving first!",
+                        tip: "Rich people ask: 'Will this make me money or cost me money?' Games are fun but they cost."
+                    }
+                ]
+            },
+            {
+                title: "🏪 The Lemonade Stand",
+                text: "Summer is here! You want to start a lemonade stand. You have $100 saved. What's your strategy?",
+                choices: [
+                    {
+                        text: "💼 Invest $50 in supplies, save $50 as emergency fund",
+                        money: 200,
+                        iq: 15,
+                        score: 150,
+                        feedback: "Brilliant! You started a business AND kept emergency money. Your stand made $250! This is how entrepreneurs think!",
+                        tip: "Always keep an emergency fund - successful business owners never spend all their money."
+                    },
+                    {
+                        text: "🚀 Spend all $100 on the best supplies to make the most money",
+                        money: 100,
+                        iq: 5,
+                        score: 80,
+                        feedback: "Risky! You made $200, but what if it rained? You'd have nothing. Smart business people always keep backup money.",
+                        tip: "Never invest 100% in one thing - that's called 'putting all your eggs in one basket.'"
+                    },
+                    {
+                        text: "😴 Keep it all in your piggy bank - too risky",
+                        money: 0,
+                        iq: 0,
+                        score: 30,
+                        feedback: "Playing it too safe! You missed a chance to grow your money. Rich people take smart, calculated risks.",
+                        tip: "Money that sits still doesn't grow. You need to invest it wisely to build wealth!"
+                    }
+                ]
+            },
+            {
+                title: "📱 The Phone Decision",
+                text: "Your phone still works fine, but there's a cool new model. It costs $800. You have $1000 saved.",
+                choices: [
+                    {
+                        text: "📈 Keep your phone, invest $500 in learning a new skill",
+                        money: 300,
+                        iq: 20,
+                        score: 200,
+                        feedback: "Genius move! You learned coding and earned $800 making websites! Skills make you money forever, new phones don't!",
+                        tip: "The best investment is in YOURSELF. Skills pay bills forever, stuff breaks."
+                    },
+                    {
+                        text: "💎 Keep current phone, save the money",
+                        money: 0,
+                        iq: 10,
+                        score: 100,
+                        feedback: "Good thinking! If your phone works, why spend? But remember, money should work FOR you, not just sit!",
+                        tip: "Saving is good, but wealthy people make their money grow through investments and skills."
+                    },
+                    {
+                        text: "📱 Buy the new phone - you deserve it!",
+                        money: -800,
+                        iq: -10,
+                        score: 20,
+                        feedback: "Uh oh! You spent 80% of your savings on something that will be old in a year. That's not how you build wealth!",
+                        tip: "Avoid lifestyle inflation - just because you have money doesn't mean you should spend it on wants."
+                    }
+                ]
+            },
+            {
+                title: "🎓 Education Investment",
+                text: "You can take a free online course or spend $200 on a professional course that gives you a certificate. You have $500.",
+                choices: [
+                    {
+                        text: "💰 Take the $200 course - certificates help you earn more",
+                        money: 600,
+                        iq: 25,
+                        score: 250,
+                        feedback: "Smart investment! You got a certificate and landed a $800/month part-time job! Education is the best investment!",
+                        tip: "Every dollar spent on education can return $10-100 over your lifetime."
+                    },
+                    {
+                        text: "📚 Take the free course and save money",
+                        money: 200,
+                        iq: 15,
+                        score: 150,
+                        feedback: "Good choice! You learned a lot and kept your money. Free learning is great, but certified skills often pay more.",
+                        tip: "Balance free and paid learning - sometimes paying for quality education pays back 10x."
+                    },
+                    {
+                        text: "😴 Skip learning, focus on earning money now",
+                        money: 100,
+                        iq: -5,
+                        score: 50,
+                        feedback: "Mistake! Without skills, you can only do low-paying jobs. You earned $100 but missed out on $800/month!",
+                        tip: "Work ON yourself before working FOR money. Skills = higher income."
+                    }
+                ]
+            },
+            {
+                title: "🎯 The Side Hustle",
+                text: "You can mow lawns for $20/lawn or learn video editing and charge $100/video (but takes 2 weeks to learn).",
+                choices: [
+                    {
+                        text: "💼 Learn video editing - higher pay long-term",
+                        money: 500,
+                        iq: 30,
+                        score: 300,
+                        feedback: "Excellent! After 2 weeks, you're making $400/week! You chose VALUABLE skills over quick cash. That's wealth thinking!",
+                        tip: "Time spent learning high-value skills is NEVER wasted. One skill can earn you thousands!"
+                    },
+                    {
+                        text: "🏃 Start mowing now - need money today",
+                        money: 100,
+                        iq: 5,
+                        score: 100,
+                        feedback: "You made quick money but stayed in low-paying work. Sometimes waiting and learning pays off way more!",
+                        tip: "Don't sacrifice long-term wealth for short-term cash unless it's an emergency."
+                    },
+                    {
+                        text: "📺 Do both - mow lawns while learning editing",
+                        money: 300,
+                        iq: 20,
+                        score: 200,
+                        feedback: "Smart compromise! You earned while learning. That's multi-tasking for wealth. Good balance!",
+                        tip: "The best strategy: earn money now while building skills for bigger money later."
+                    }
+                ]
+            },
+            {
+                title: "💳 Credit Card Offer",
+                text: "You turn 16! A store offers you a credit card with 'buy now, pay later.' You want new clothes.",
+                choices: [
+                    {
+                        text: "❌ No thanks - only spend money you have",
+                        money: 0,
+                        iq: 25,
+                        score: 250,
+                        feedback: "WISE! Credit card debt destroys wealth. The clothes cost $100, but with interest you'd pay $150! You saved $50!",
+                        tip: "Credit cards are wealth killers for most people. Only use them if you pay in full monthly."
+                    },
+                    {
+                        text: "💰 Buy $100 worth, but pay it all back immediately",
+                        money: -100,
+                        iq: 15,
+                        score: 150,
+                        feedback: "Okay, you avoided interest! But was it necessary? Rich people avoid debt unless it makes them money.",
+                        tip: "Good debt builds wealth (business loans), bad debt buys stuff (credit cards for clothes)."
+                    },
+                    {
+                        text: "🛍️ Get the card - worry about payments later",
+                        money: -250,
+                        iq: -20,
+                        score: 20,
+                        feedback: "Danger! Credit card interest ate your money. That $100 purchase cost you $250! This is how people go broke!",
+                        tip: "Credit card debt is one of the biggest wealth destroyers. AVOID IT!"
+                    }
+                ]
+            },
+            {
+                title: "📊 Investment Opportunity",
+                text: "Your parent wants to teach you investing. They'll match whatever you invest in a stock learning account. You have $300.",
+                choices: [
+                    {
+                        text: "🚀 Invest $200 - keep $100 emergency fund",
+                        money: 600,
+                        iq: 30,
+                        score: 350,
+                        feedback: "Perfect! With matching, you invested $400! After a year, it grew to $500! Smart investors start young and keep emergency money!",
+                        tip: "Start investing young! $100/month from age 15-25 can become $1 MILLION by retirement!"
+                    },
+                    {
+                        text: "💪 Invest all $300 - maximize the match",
+                        money: 500,
+                        iq: 20,
+                        score: 250,
+                        feedback: "Aggressive! With matching you invested $600! It grew to $700. But what about emergencies? Balance is key!",
+                        tip: "Always keep 3-6 months of expenses as emergency fund before investing big."
+                    },
+                    {
+                        text: "😰 Too risky - keep it in savings",
+                        money: 0,
+                        iq: -10,
+                        score: 50,
+                        feedback: "Missed opportunity! You lost the match AND your money earned nothing. Savings accounts barely beat inflation!",
+                        tip: "Savings accounts lose value to inflation. Investing (wisely) builds real wealth!"
+                    }
+                ]
+            },
+            {
+                title: "🏠 The Asset vs Liability Test",
+                text: "You have $1000. You can buy: a gaming console, a laptop for creating content, or invest it.",
+                choices: [
+                    {
+                        text: "💻 Laptop - I can make money with it",
+                        money: 2000,
+                        iq: 35,
+                        score: 400,
+                        feedback: "BRILLIANT! Assets MAKE money! You created content, earned $3000! Gaming console would cost money. This is how rich people think!",
+                        tip: "Assets put money IN your pocket. Liabilities take money OUT. Always buy assets first!"
+                    },
+                    {
+                        text: "📈 Invest it all - grow my wealth",
+                        money: 400,
+                        iq: 25,
+                        score: 300,
+                        feedback: "Great long-term thinking! Your $1000 grew to $1400 in a year. That's 40% return! Better than spending it!",
+                        tip: "Compound interest is your best friend. Money making money is how millionaires are made!"
+                    },
+                    {
+                        text: "🎮 Gaming console - I need fun too",
+                        money: -1000,
+                        iq: -15,
+                        score: 50,
+                        feedback: "Oops! Gaming consoles are liabilities - they cost money, don't make money. You can have fun AFTER building wealth!",
+                        tip: "Delayed gratification = wealth. Get the console AFTER your money makes money!"
+                    }
+                ]
+            },
+            {
+                title: "👥 The Partnership",
+                text: "Friend wants to start a business together. They have the idea, want you to invest $500. 50-50 split.",
+                choices: [
+                    {
+                        text: "📋 Ask for a written plan and agreement first",
+                        money: 1500,
+                        iq: 40,
+                        score: 500,
+                        feedback: "PERFECT! The plan was solid! Business made $4000, you got $2000! Written agreements protect partnerships!",
+                        tip: "Never invest without a plan and agreement. This is how pros protect themselves!"
+                    },
+                    {
+                        text: "💰 Invest smaller amount ($200) to test",
+                        money: 400,
+                        iq: 25,
+                        score: 300,
+                        feedback: "Smart risk management! You tested with $200, made $600! Testing before going all-in is smart business!",
+                        tip: "Start small, prove the concept, then scale up. This reduces risk!"
+                    },
+                    {
+                        text: "🤝 Trust my friend - invest immediately",
+                        money: -500,
+                        iq: -20,
+                        score: 50,
+                        feedback: "Red flag! No plan = no investment! The business failed. NEVER invest without research, even with friends!",
+                        tip: "Business is business - always get agreements in writing, even with friends!"
+                    }
+                ]
+            },
+            {
+                title: "🎯 The Final Challenge",
+                text: "You have $2000. Multiple options: save it, invest, start business, or spend on wants. What's your move?",
+                choices: [
+                    {
+                        text: "🏆 Keep $500 emergency, invest $1000, business $500",
+                        money: 3000,
+                        iq: 50,
+                        score: 600,
+                        feedback: "MASTER LEVEL! You diversified! Emergency fund: safe. Investments: growing. Business: potential big wins! This is EXACTLY how wealthy people manage money!",
+                        tip: "Diversification is key: emergency fund + investments + income-generating assets = wealth!"
+                    },
+                    {
+                        text: "📈 Invest it all in index funds",
+                        money: 800,
+                        iq: 30,
+                        score: 400,
+                        feedback: "Solid! Index funds are great long-term! Grew to $2800! But remember diversification and emergency funds too!",
+                        tip: "Index funds are amazing, but balance with emergency savings and income opportunities!"
+                    },
+                    {
+                        text: "🎉 Treat yourself - you earned it!",
+                        money: -2000,
+                        iq: -30,
+                        score: 50,
+                        feedback: "NO! Treating yourself is fine, but not with ALL your wealth! This mindset keeps people broke. Build wealth FIRST!",
+                        tip: "Treat yourself with 10% of earnings, not 100%. Wealthy people delay gratification!"
+                    }
+                ]
+            }
+        ];
+
+        function updateStats() {
+            document.getElementById('money').textContent = `$${gameState.money}`;
+            document.getElementById('iq').textContent = gameState.iq;
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('levelDisplay').textContent = gameState.level + 1;
+            document.getElementById('level').textContent = gameState.level + 1;
+
+            const progress = ((gameState.level + 1) / gameState.totalLevels) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+
+        function loadScenario() {
+            if (gameState.level >= scenarios.length) {
+                showCompletion();
+                return;
+            }
+
+            const scenario = scenarios[gameState.level];
+            const gameArea = document.getElementById('gameArea');
+
+            gameArea.innerHTML = `
+                <div class="scenario">
+                    <h2>${scenario.title}</h2>
+                    <p class="scenario-text">${scenario.text}</p>
+                    <div class="choices">
+                        ${scenario.choices.map((choice, index) => `
+                            <button class="choice" onclick="makeChoice(${index})">
+                                ${choice.text}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function makeChoice(choiceIndex) {
+            const scenario = scenarios[gameState.level];
+            const choice = scenario.choices[choiceIndex];
+
+            gameState.money += choice.money;
+            gameState.iq += choice.iq;
+            gameState.score += choice.score;
+
+            updateStats();
+
+            const gameArea = document.getElementById('gameArea');
+            gameArea.innerHTML += `
+                <div class="feedback ${choice.iq < 0 ? 'bad' : ''}">
+                    <h3>${choice.iq > 0 ? '✅ Great Choice!' : '⚠️ Learn From This'}</h3>
+                    <p>${choice.feedback}</p>
+                </div>
+
+                <div class="money-tip">
+                    <h4>💡 Money Wisdom</h4>
+                    <p>${choice.tip}</p>
+                </div>
+
+                <button class="next-btn" onclick="nextLevel()">
+                    ➡️ Continue to Next Challenge
+                </button>
+            `;
+
+            // Check for achievements
+            if (gameState.iq >= 100) {
+                gameArea.innerHTML += `
+                    <div class="achievement">
+                        🏆 Achievement Unlocked: Financial Genius! (IQ 100+)
+                    </div>
+                `;
+            }
+
+            if (gameState.money >= 5000) {
+                gameArea.innerHTML += `
+                    <div class="achievement">
+                        💎 Achievement Unlocked: Young Millionaire in Making! ($5000+)
+                    </div>
+                `;
+            }
+        }
+
+        function nextLevel() {
+            gameState.level++;
+            loadScenario();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showCompletion() {
+            let rating = '';
+            let message = '';
+
+            if (gameState.score >= 3000 && gameState.iq >= 150) {
+                rating = '🏆 WEALTH MASTER';
+                message = 'You\'re a financial genius! You made smart choices, built assets, and thought long-term. Keep this mindset and you WILL become wealthy!';
+            } else if (gameState.score >= 2000) {
+                rating = '💎 MONEY SMART';
+                message = 'Great job! You understand wealth-building basics. Keep learning and applying these principles!';
+            } else if (gameState.score >= 1000) {
+                rating = '📚 LEARNING';
+                message = 'You\'re on the right track! Review the tips and try again to master wealth thinking!';
+            } else {
+                rating = '🎯 BEGINNER';
+                message = 'Everyone starts somewhere! Play again and focus on long-term thinking and assets over wants!';
+            }
+
+            document.getElementById('gameArea').innerHTML = `
+                <div class="complete-screen">
+                    <h2>🎉 Game Complete!</h2>
+                    <h1 style="font-size: 2.5em; margin: 20px 0;">${rating}</h1>
+
+                    <div class="final-stats">
+                        <div class="final-stat">
+                            <div class="final-stat-label">Final Money</div>
+                            <div class="final-stat-value">$${gameState.money}</div>
+                        </div>
+
+                        <div class="final-stat">
+                            <div class="final-stat-label">Financial IQ</div>
+                            <div class="final-stat-value">${gameState.iq}</div>
+                        </div>
+
+                        <div class="final-stat">
+                            <div class="final-stat-label">Total Score</div>
+                            <div class="final-stat-value">${gameState.score}</div>
+                        </div>
+                    </div>
+
+                    <div class="money-tip" style="text-align: left;">
+                        <h4>🎯 Your Result</h4>
+                        <p style="font-size: 1.2em;">${message}</p>
+                    </div>
+
+                    <div class="money-tip" style="text-align: left; margin-top: 20px;">
+                        <h4>🚀 Key Lessons to Remember</h4>
+                        <p style="font-size: 1.1em; line-height: 1.8;">
+                            ✅ Assets MAKE money, liabilities COST money<br>
+                            ✅ Invest in yourself first - skills = wealth<br>
+                            ✅ Save before spending - pay yourself first<br>
+                            ✅ Start investing young - compound interest is magic<br>
+                            ✅ Avoid debt - especially credit cards<br>
+                            ✅ Think long-term over short-term gratification<br>
+                            ✅ Diversify - don't put all eggs in one basket<br>
+                            ✅ Keep emergency funds always<br>
+                            ✅ Make money work for YOU, not you for money
+                        </p>
+                    </div>
+
+                    <button class="next-btn" onclick="location.reload()">
+                        🔄 Play Again & Master Wealth!
+                    </button>
+                </div>
+            `;
+        }
+
+        // Start the game
+        loadScenario();
+        updateStats();
+    </script>
+</body>
+</html>

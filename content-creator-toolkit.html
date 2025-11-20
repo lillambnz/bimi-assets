@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Creator Toolkit - Monetize Your Creativity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #f5576c;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #f5576c;
+            color: white;
+            border-color: #f5576c;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-color: #f5576c;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #f5576c;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #f5576c;
+        }
+
+        .card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #f5576c;
+        }
+
+        button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 2px solid #f5576c;
+        }
+
+        .idea-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #f5576c;
+        }
+
+        .idea-item h4 {
+            color: #f5576c;
+            margin-bottom: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f5576c;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .tip {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .tip strong {
+            color: #856404;
+        }
+
+        @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+            }
+
+            .tab {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Content Creator Toolkit</h1>
+        <p class="subtitle">Turn Your Creativity Into Cash Flow</p>
+
+        <!-- Tabs -->
+        <div class="tab-container">
+            <div class="tab active" onclick="switchTab('ideas')">💡 Content Ideas</div>
+            <div class="tab" onclick="switchTab('titles')">📝 Title Generator</div>
+            <div class="tab" onclick="switchTab('scripts')">📜 Script Outlines</div>
+            <div class="tab" onclick="switchTab('hashtags')">📸 Hashtag Generator</div>
+            <div class="tab" onclick="switchTab('earnings')">💰 Earnings Calculator</div>
+            <div class="tab" onclick="switchTab('trends')">🔥 Trending Topics</div>
+        </div>
+
+        <!-- Content Ideas Tab -->
+        <div id="ideas" class="tab-content active">
+            <div class="section">
+                <h2>🚀 Viral Content Ideas Generator</h2>
+                <select id="niche">
+                    <option value="">Select Your Niche</option>
+                    <option value="Tech & Gadgets">Tech & Gadgets</option>
+                    <option value="Finance & Money">Finance & Money</option>
+                    <option value="Lifestyle & Vlog">Lifestyle & Vlog</option>
+                    <option value="Education & How-To">Education & How-To</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Fitness & Health">Fitness & Health</option>
+                    <option value="Food & Cooking">Food & Cooking</option>
+                    <option value="DIY & Crafts">DIY & Crafts</option>
+                    <option value="Family & Parenting">Family & Parenting</option>
+                    <option value="Business & Entrepreneurship">Business & Entrepreneurship</option>
+                </select>
+
+                <select id="platform">
+                    <option value="YouTube">YouTube</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Instagram">Instagram Reels</option>
+                    <option value="YouTube Shorts">YouTube Shorts</option>
+                </select>
+
+                <button onclick="generateIdeas()">✨ Generate Content Ideas</button>
+
+                <div id="ideasResult"></div>
+            </div>
+        </div>
+
+        <!-- Title Generator Tab -->
+        <div id="titles" class="tab-content">
+            <div class="section">
+                <h2>🎯 Viral Title Generator</h2>
+                <input type="text" id="videoTopic" placeholder="What's your video about? e.g., 'making passive income online'">
+
+                <select id="titleStyle">
+                    <option value="clickbait">Clickbait (High CTR)</option>
+                    <option value="howto">How-To Style</option>
+                    <option value="listicle">Listicle</option>
+                    <option value="question">Question Based</option>
+                    <option value="shocking">Shocking/Surprising</option>
+                </select>
+
+                <button onclick="generateTitles()">🔥 Generate Titles</button>
+
+                <div id="titlesResult"></div>
+
+                <div class="tip">
+                    <strong>💡 Pro Tip:</strong> Titles with numbers, "you" language, and strong emotions get 2-3x more clicks!
+                </div>
+            </div>
+        </div>
+
+        <!-- Script Outlines Tab -->
+        <div id="scripts" class="tab-content">
+            <div class="section">
+                <h2>📝 Video Script Outliner</h2>
+                <input type="text" id="scriptTopic" placeholder="Video topic">
+
+                <select id="videoLength">
+                    <option value="short">Short (30-60 seconds)</option>
+                    <option value="medium">Medium (3-5 minutes)</option>
+                    <option value="long">Long (8-15 minutes)</option>
+                </select>
+
+                <button onclick="generateScript()">📋 Generate Script Outline</button>
+
+                <div id="scriptResult"></div>
+            </div>
+        </div>
+
+        <!-- Hashtag Generator Tab -->
+        <div id="hashtags" class="tab-content">
+            <div class="section">
+                <h2>🏷️ Hashtag Generator</h2>
+                <input type="text" id="hashtagTopic" placeholder="What's your content about?">
+
+                <select id="hashtagPlatform">
+                    <option value="TikTok">TikTok</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="YouTube">YouTube</option>
+                </select>
+
+                <button onclick="generateHashtags()">🚀 Generate Hashtags</button>
+
+                <div id="hashtagsResult"></div>
+
+                <div class="tip">
+                    <strong>💡 Strategy:</strong> Use a mix of popular (1M+), medium (100K-1M), and niche (10K-100K) hashtags for best reach!
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings Calculator Tab -->
+        <div id="earnings" class="tab-content">
+            <div class="section">
+                <h2>💰 Potential Earnings Calculator</h2>
+
+                <h3>YouTube</h3>
+                <input type="number" id="ytViews" placeholder="Monthly views" min="0">
+                <input type="number" id="ytCPM" placeholder="CPM (e.g., 5)" value="5" step="0.1" min="0">
+
+                <h3 style="margin-top: 20px;">TikTok Creator Fund</h3>
+                <input type="number" id="ttViews" placeholder="Monthly views" min="0">
+
+                <h3 style="margin-top: 20px;">Sponsorships</h3>
+                <input type="number" id="followers" placeholder="Total followers" min="0">
+
+                <button onclick="calculateEarnings()">💵 Calculate Potential Income</button>
+
+                <div id="earningsResult"></div>
+            </div>
+        </div>
+
+        <!-- Trending Topics Tab -->
+        <div id="trends" class="tab-content">
+            <div class="section">
+                <h2>🔥 What's Trending Now</h2>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>🎯 YouTube Trends</h3>
+                        <p><span class="badge">#1</span> AI Tools & Productivity</p>
+                        <p><span class="badge">#2</span> Side Hustle Ideas 2025</p>
+                        <p><span class="badge">#3</span> Passive Income Streams</p>
+                        <p><span class="badge">#4</span> Budget Living / Frugality</p>
+                        <p><span class="badge">#5</span> ChatGPT Tutorials</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📱 TikTok Trends</h3>
+                        <p><span class="badge">#1</span> Money-Making Tips</p>
+                        <p><span class="badge">#2</span> Day in Life (DITL)</p>
+                        <p><span class="badge">#3</span> Product Recommendations</p>
+                        <p><span class="badge">#4</span> Life Hacks</p>
+                        <p><span class="badge">#5</span> Storytelling / Storytime</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>💼 Most Profitable Niches</h3>
+                        <p><span class="badge">$$$</span> Finance & Investing</p>
+                        <p><span class="badge">$$$</span> Tech Reviews</p>
+                        <p><span class="badge">$$</span> Real Estate</p>
+                        <p><span class="badge">$$</span> Business & Marketing</p>
+                        <p><span class="badge">$</span> Lifestyle & Vlogs</p>
+                    </div>
+                </div>
+
+                <div class="tip" style="margin-top: 20px;">
+                    <strong>🎯 Action Plan:</strong> Pick a profitable niche, post consistently (3-5x/week), engage with comments, and collaborate with other creators!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function generateIdeas() {
+            const niche = document.getElementById('niche').value;
+            const platform = document.getElementById('platform').value;
+
+            if (!niche) {
+                alert('Please select a niche!');
+                return;
+            }
+
+            const ideas = {
+                'Tech & Gadgets': [
+                    'Top 10 Budget Tech Gadgets That Changed My Life',
+                    'I Tested Viral Tech Products - Here\'s What Actually Works',
+                    'Tech Setup Tour Under $500 - Budget Edition',
+                    'Hidden Phone Features You Never Knew Existed',
+                    'Future Tech That Will Make You Rich (Invest Now!)'
+                ],
+                'Finance & Money': [
+                    '7 Ways I Make $10K/Month in Passive Income',
+                    'How I Went From Broke to $100K Saved in 2 Years',
+                    'Money Apps That Actually Pay You (Tested!)',
+                    'Side Hustles That Made Me $1000 This Week',
+                    'Why I\'ll Never Pay Full Price Again (Money Hacks)'
+                ],
+                'Lifestyle & Vlog': [
+                    'Day in My Life Making $XXX Online',
+                    '24 Hours Using Only [Specific Budget/Rule]',
+                    'I Tried [Trending Challenge] for 30 Days',
+                    'What I Spend in a Week (Realistic Budget)',
+                    'Life Update: How Everything Changed'
+                ],
+                'Education & How-To': [
+                    'I Learned [Skill] in 30 Days - Here\'s How',
+                    'Complete Beginner\'s Guide to [Topic]',
+                    '5 Skills That Will Make You Rich in 2025',
+                    'How to [Achieve Goal] Step by Step',
+                    'Mistakes Everyone Makes (And How to Fix Them)'
+                ],
+                'Gaming': [
+                    'This Strategy Made Me Top 1% (Tutorial)',
+                    'Secret Tips Pro Players Don\'t Share',
+                    'I Spent $0 vs $1000 - Which Performs Better?',
+                    'Reacting to My First Ever Gameplay',
+                    'Best Settings for Maximum Performance'
+                ],
+                'Fitness & Health': [
+                    'I Tried [Diet/Workout] for 30 Days - Shocking Results',
+                    'Home Workout That Gave Me These Results',
+                    'What I Eat in a Day (Healthy & Budget Friendly)',
+                    'Fitness Myths That Are Keeping You From Results',
+                    'No Gym? No Problem - Full Body Workout'
+                ],
+                'Food & Cooking': [
+                    '$5 Meals That Taste Like $50',
+                    'I Made [Celebrity]\'s Favorite Dish at Home',
+                    'Meal Prep Sunday - Feed Family for $50/Week',
+                    'Secret Restaurant Recipe Revealed',
+                    'Cooking Fails That Actually Worked Out'
+                ],
+                'DIY & Crafts': [
+                    'I Turned Trash Into This [Amazing Item]',
+                    'DIY [Project] for Under $20',
+                    'Thrift Store Makeover - Before & After',
+                    'Pinterest Inspired [Project] - Did It Work?',
+                    'Home Upgrades That Add Serious Value'
+                ],
+                'Family & Parenting': [
+                    'Teaching Kids About Money (What Works!)',
+                    'Our Family Budget Breakdown (Real Numbers)',
+                    'Side Hustles I Do With My Kids',
+                    'How We Save $1000/Month as a Family',
+                    'Honest Parenting - What No One Tells You'
+                ],
+                'Business & Entrepreneurship': [
+                    'How I Started My Business With $100',
+                    'My First $10K Month - What Actually Worked',
+                    'Business Tools That 10X My Productivity',
+                    'I Quit My Job - Here\'s What Happened',
+                    'Passive Income Businesses You Can Start Today'
+                ]
+            };
+
+            const selectedIdeas = ideas[niche] || [];
+            const result = document.getElementById('ideasResult');
+
+            result.innerHTML = `
+                <div class="result-box">
+                    <h3>💡 Content Ideas for ${niche} on ${platform}</h3>
+                    ${selectedIdeas.map((idea, i) => `
+                        <div class="idea-item">
+                            <h4>Idea ${i + 1}</h4>
+                            <p>${idea}</p>
+                        </div>
+                    `).join('')}
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>🎯 Next Step:</strong> Pick one idea and create it this week! Consistency beats perfection.
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateTitles() {
+            const topic = document.getElementById('videoTopic').value;
+            const style = document.getElementById('titleStyle').value;
+
+            if (!topic) {
+                alert('Please enter a video topic!');
+                return;
+            }
+
+            const templates = {
+                clickbait: [
+                    `This ${topic} Changed My Life (You Won't Believe #3)`,
+                    `I Tried ${topic} For 30 Days - Here's What Happened`,
+                    `The TRUTH About ${topic} Nobody Tells You`,
+                    `${topic} - Why Everyone Is Doing This Now`,
+                    `I Was WRONG About ${topic} (Must Watch)`
+                ],
+                howto: [
+                    `How to Master ${topic} in 2025 (Complete Guide)`,
+                    `${topic}: Step-by-Step Tutorial for Beginners`,
+                    `How I Finally Succeeded at ${topic}`,
+                    `The Ultimate ${topic} Guide (Everything You Need)`,
+                    `${topic} Explained Simply (Even Kids Understand)`
+                ],
+                listicle: [
+                    `7 ${topic} Tips That Actually Work`,
+                    `Top 10 ${topic} Mistakes (And How to Fix Them)`,
+                    `5 ${topic} Secrets Pros Don't Share`,
+                    `10 Things I Wish I Knew About ${topic}`,
+                    `3 ${topic} Methods That Made Me $1000`
+                ],
+                question: [
+                    `Is ${topic} Worth It in 2025?`,
+                    `Should You Try ${topic}? (Honest Review)`,
+                    `Can ${topic} Really Make You Money?`,
+                    `Why Is Everyone Talking About ${topic}?`,
+                    `What Makes ${topic} So Effective?`
+                ],
+                shocking: [
+                    `${topic} Results After 1 Year (Shocking!)`,
+                    `You've Been Doing ${topic} WRONG This Whole Time`,
+                    `${topic} Exposed: The Real Truth`,
+                    `Why ${topic} Is About to Change Everything`,
+                    `This ${topic} Hack Broke The Internet`
+                ]
+            };
+
+            const titles = templates[style] || [];
+            const result = document.getElementById('titlesResult');
+
+            result.innerHTML = `
+                <div class="result-box">
+                    <h3>🎯 Title Options</h3>
+                    ${titles.map((title, i) => `
+                        <div class="idea-item">
+                            <h4>Option ${i + 1}</h4>
+                            <p>${title}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function generateScript() {
+            const topic = document.getElementById('scriptTopic').value;
+            const length = document.getElementById('videoLength').value;
+
+            if (!topic) {
+                alert('Please enter a topic!');
+                return;
+            }
+
+            let outline = '';
+
+            if (length === 'short') {
+                outline = `
+                    <div class="idea-item">
+                        <h4>⏱️ 0-3 seconds: Hook</h4>
+                        <p>"Watch this if you want to [benefit related to ${topic}]"</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>⏱️ 3-10 seconds: Problem</h4>
+                        <p>"Most people struggle with ${topic} because..."</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>⏱️ 10-40 seconds: Solution</h4>
+                        <p>Quick tip or demonstration about ${topic}</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>⏱️ 40-60 seconds: CTA</h4>
+                        <p>"Follow for more tips on ${topic}!" or "Try this and let me know!"</p>
+                    </div>
+                `;
+            } else if (length === 'medium') {
+                outline = `
+                    <div class="idea-item">
+                        <h4>📍 Intro (0-30 sec)</h4>
+                        <p>• Hook: "In this video, I'll show you..."<br>
+                        • Why this matters for ${topic}<br>
+                        • What viewers will learn</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Point 1 (30 sec - 2 min)</h4>
+                        <p>First main tip or step about ${topic}</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Point 2 (2-3 min)</h4>
+                        <p>Second main tip or step about ${topic}</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Point 3 (3-4 min)</h4>
+                        <p>Third main tip or step about ${topic}</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Conclusion (4-5 min)</h4>
+                        <p>• Recap the 3 main points<br>
+                        • Call to action (like, subscribe, comment)<br>
+                        • Tease next video</p>
+                    </div>
+                `;
+            } else {
+                outline = `
+                    <div class="idea-item">
+                        <h4>📍 Intro (0-1 min)</h4>
+                        <p>• Strong hook about ${topic}<br>
+                        • Personal story or credentials<br>
+                        • Overview of what's coming</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Context/Background (1-3 min)</h4>
+                        <p>Why ${topic} matters, common misconceptions</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Main Content (3-10 min)</h4>
+                        <p>• Deep dive into ${topic}<br>
+                        • Multiple examples and demonstrations<br>
+                        • Real results or case studies<br>
+                        • Pro tips and advanced strategies</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Common Mistakes (10-12 min)</h4>
+                        <p>What to avoid when doing ${topic}</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Action Steps (12-14 min)</h4>
+                        <p>Exactly what viewers should do next</p>
+                    </div>
+                    <div class="idea-item">
+                        <h4>📍 Outro (14-15 min)</h4>
+                        <p>• Recap key takeaways<br>
+                        • CTA (subscribe, free resources, etc.)<br>
+                        • End screen with next video</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('scriptResult').innerHTML = `
+                <div class="result-box">
+                    <h3>📝 Script Outline for: ${topic}</h3>
+                    ${outline}
+                </div>
+            `;
+        }
+
+        function generateHashtags() {
+            const topic = document.getElementById('hashtagTopic').value;
+            const platform = document.getElementById('hashtagPlatform').value;
+
+            if (!topic) {
+                alert('Please enter a topic!');
+                return;
+            }
+
+            const generic = ['#viral', '#trending', '#fyp', '#foryou', '#explore', '#explorepage'];
+            const engagement = ['#like', '#follow', '#comment', '#share', '#followme'];
+
+            // Generate topic-specific hashtags
+            const words = topic.toLowerCase().split(' ');
+            const topicTags = words.map(w => `#${w}`);
+            const combined = words.join('');
+            if (combined.length > 0) topicTags.push(`#${combined}`);
+
+            const result = document.getElementById('hashtagsResult');
+            result.innerHTML = `
+                <div class="result-box">
+                    <h3>🏷️ Hashtags for ${platform}</h3>
+
+                    <div class="idea-item">
+                        <h4>🔥 High Volume (Use 2-3)</h4>
+                        <p>${generic.join(' ')}</p>
+                    </div>
+
+                    <div class="idea-item">
+                        <h4>🎯 Topic Specific (Use all)</h4>
+                        <p>${topicTags.join(' ')}</p>
+                    </div>
+
+                    <div class="idea-item">
+                        <h4>💬 Engagement Tags (Use 2-3)</h4>
+                        <p>${engagement.join(' ')}</p>
+                    </div>
+
+                    <div class="tip" style="margin-top: 15px;">
+                        <strong>Copy & Paste:</strong><br>
+                        ${[...topicTags, ...generic.slice(0, 3), ...engagement.slice(0, 2)].join(' ')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateEarnings() {
+            const ytViews = parseFloat(document.getElementById('ytViews').value) || 0;
+            const ytCPM = parseFloat(document.getElementById('ytCPM').value) || 5;
+            const ttViews = parseFloat(document.getElementById('ttViews').value) || 0;
+            const followers = parseFloat(document.getElementById('followers').value) || 0;
+
+            // YouTube: (Views / 1000) * CPM * 0.55 (creator's share)
+            const ytEarnings = (ytViews / 1000) * ytCPM * 0.55;
+
+            // TikTok: ~$0.02-0.04 per 1000 views
+            const ttEarnings = (ttViews / 1000) * 0.03;
+
+            // Sponsorships: ~$10-20 per 1000 followers (conservative)
+            const sponsorEarnings = (followers / 1000) * 15;
+
+            const total = ytEarnings + ttEarnings + sponsorEarnings;
+
+            document.getElementById('earningsResult').innerHTML = `
+                <div class="result-box">
+                    <h3>💰 Your Potential Monthly Earnings</h3>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">YouTube</div>
+                            <div class="stat-number">$${ytEarnings.toFixed(0)}</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-label">TikTok</div>
+                            <div class="stat-number">$${ttEarnings.toFixed(0)}</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-label">Sponsorships</div>
+                            <div class="stat-number">$${sponsorEarnings.toFixed(0)}</div>
+                        </div>
+
+                        <div class="stat-card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                            <div class="stat-label">Total Monthly</div>
+                            <div class="stat-number">$${total.toFixed(0)}</div>
+                        </div>
+                    </div>
+
+                    <div class="idea-item">
+                        <h4>📊 Yearly Projection</h4>
+                        <p style="font-size: 1.5em; font-weight: bold; color: #11998e;">$${(total * 12).toFixed(0)}/year</p>
+                    </div>
+
+                    <div class="tip">
+                        <strong>💡 Scale Strategy:</strong> Double your output = double your income. Most successful creators post 3-7x per week and reinvest in better equipment and promotion.
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

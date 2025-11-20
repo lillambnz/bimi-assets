@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passive Income Generator - Make Money While You Sleep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #fc466b;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .filter-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .filter-section h2 {
+            color: #fc466b;
+            margin-bottom: 20px;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #fc466b;
+        }
+
+        button {
+            background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(252, 70, 107, 0.4);
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .idea-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-color: #fc466b;
+        }
+
+        .idea-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .idea-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #fc466b;
+            flex: 1;
+        }
+
+        .idea-rating {
+            background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .idea-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .idea-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 3px;
+        }
+
+        .stat-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fc466b;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge.low { background: #d4edda; color: #155724; }
+        .badge.medium { background: #fff3cd; color: #856404; }
+        .badge.high { background: #f8d7da; color: #721c24; }
+        .badge.passive { background: #cfe2ff; color: #084298; }
+        .badge.semi { background: #e2e3e5; color: #383d41; }
+
+        .steps {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .steps h4 {
+            color: #fc466b;
+            margin-bottom: 10px;
+        }
+
+        .steps ol {
+            margin-left: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .tip-box h3 {
+            color: #d4543e;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Passive Income Generator</h1>
+        <p class="subtitle">Discover Ways to Make Money While You Sleep</p>
+
+        <div class="filter-section">
+            <h2>🎯 Find Your Perfect Passive Income Stream</h2>
+
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label>💵 Starting Budget</label>
+                    <select id="budget">
+                        <option value="all">All Budgets</option>
+                        <option value="0">$0 - Free</option>
+                        <option value="100">Under $100</option>
+                        <option value="500">Under $500</option>
+                        <option value="1000">Under $1000</option>
+                        <option value="5000">$1000+</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>⏰ Effort Level</label>
+                    <select id="effort">
+                        <option value="all">All Levels</option>
+                        <option value="passive">Truly Passive</option>
+                        <option value="semi">Semi-Passive</option>
+                        <option value="active">Active Setup</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>📊 Income Potential</label>
+                    <select id="income">
+                        <option value="all">All Ranges</option>
+                        <option value="low">$100-500/mo</option>
+                        <option value="medium">$500-2000/mo</option>
+                        <option value="high">$2000+/mo</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>⚡ Time to First $</label>
+                    <select id="timeToMoney">
+                        <option value="all">Any Timeline</option>
+                        <option value="fast">1-7 days</option>
+                        <option value="medium">1-3 months</option>
+                        <option value="slow">3-12 months</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="filterIdeas()">🔍 Show Me Ideas</button>
+        </div>
+
+        <div class="tip-box">
+            <h3>💡 What is "Passive" Income?</h3>
+            <p><strong>Passive income</strong> means you do the work once and earn money repeatedly. Unlike trading time for money (job/freelance), passive income systems earn while you sleep, vacation, or work on other things.<br><br>
+            <strong>Reality Check:</strong> Most passive income requires significant upfront work or money. But once set up, it compounds and scales!<br><br>
+            <strong>Best Strategy:</strong> Start with 1-2 streams, get them profitable, then add more. Multiple passive income streams = true financial freedom!</p>
+        </div>
+
+        <div id="ideasContainer"></div>
+    </div>
+
+    <script>
+        const passiveIncomeIdeas = [
+            {
+                title: "Dividend Stocks & Index Funds",
+                rating: "9.5/10",
+                budget: 100,
+                effort: "passive",
+                income: "medium",
+                timeToMoney: "medium",
+                potential: "$200-5000/mo",
+                setup: "1-7 days",
+                description: "Invest in dividend-paying stocks or index funds. Companies pay you regularly just for owning shares. Truly passive once set up.",
+                steps: [
+                    "Open brokerage account (Vanguard, Fidelity, Schwab)",
+                    "Research dividend ETFs like VYM, SCHD, or VTI",
+                    "Set up automatic monthly investments",
+                    "Reinvest dividends for compound growth",
+                    "Typical yield: 2-4% annually"
+                ],
+                upfront: "$500-10,000+",
+                ongoing: "5 min/month"
+            },
+            {
+                title: "High-Yield Savings & Money Market",
+                rating: "8.0/10",
+                budget: 0,
+                effort: "passive",
+                income: "low",
+                timeToMoney: "fast",
+                potential: "$50-500/mo",
+                setup: "1 day",
+                description: "Park emergency fund in high-yield savings (4-5% APY). Zero risk, truly passive. Great for beginners.",
+                steps: [
+                    "Open account with Marcus, Ally, or CIT Bank",
+                    "Transfer your savings (keep 3-6 months expenses)",
+                    "Earn 4-5% interest automatically",
+                    "No minimums, FDIC insured",
+                    "Better than 0.01% regular banks pay"
+                ],
+                upfront: "$1000+",
+                ongoing: "0 min/month"
+            },
+            {
+                title: "Rental Income - Real Estate",
+                rating: "8.5/10",
+                budget: 5000,
+                effort: "semi",
+                income: "high",
+                timeToMoney: "slow",
+                potential: "$500-5000/mo",
+                setup: "1-6 months",
+                description: "Buy property, rent it out. Builds wealth through cash flow AND appreciation. Can be semi-passive with property manager.",
+                steps: [
+                    "Save for down payment (3.5-20%)",
+                    "Research markets with good rent-to-price ratios",
+                    "Buy property below market value",
+                    "Find tenants (Zillow, Apartments.com)",
+                    "Hire property manager (8-10% of rent) for true passivity"
+                ],
+                upfront: "$10,000-50,000",
+                ongoing: "2-10 hours/month"
+            },
+            {
+                title: "Rent Your Car (Turo)",
+                rating: "7.5/10",
+                budget: 0,
+                effort: "semi",
+                income: "low",
+                timeToMoney: "fast",
+                potential: "$200-1000/mo",
+                setup: "1-3 days",
+                description: "List your car on Turo when not using it. Earn passive income from an asset you already own.",
+                steps: [
+                    "Sign up at Turo.com",
+                    "Take photos of your car",
+                    "Set daily rate ($30-100+ depending on car)",
+                    "Guests rent, Turo provides insurance",
+                    "Clean car between rentals"
+                ],
+                upfront: "$0 (own car)",
+                ongoing: "3-5 hours/month"
+            },
+            {
+                title: "Airbnb / VRBO Rental",
+                rating: "8.0/10",
+                budget: 500,
+                effort: "semi",
+                income: "high",
+                timeToMoney: "fast",
+                potential: "$500-5000/mo",
+                setup: "1-7 days",
+                description: "Rent spare room or property on Airbnb. Often more profitable than long-term renting. Can automate with co-hosts.",
+                steps: [
+                    "Take professional photos of space",
+                    "Create listing on Airbnb/VRBO",
+                    "Invest in good linens, basics",
+                    "Use smart locks for self check-in",
+                    "Hire cleaning service for full passivity"
+                ],
+                upfront: "$500-2000",
+                ongoing: "5-15 hours/month"
+            },
+            {
+                title: "Create & Sell Digital Products",
+                rating: "9.0/10",
+                budget: 0,
+                effort: "active",
+                income: "medium",
+                timeToMoney: "medium",
+                potential: "$100-10,000/mo",
+                setup: "1-3 months",
+                description: "Create once, sell forever. E-books, courses, templates, printables. Truly scalable passive income.",
+                steps: [
+                    "Pick topic you know well (use your expertise)",
+                    "Create product (Notion templates, PDFs, courses)",
+                    "Sell on Gumroad, Etsy, or own site",
+                    "Market once through SEO, social, ads",
+                    "Earn while you sleep as people buy"
+                ],
+                upfront: "$0-500",
+                ongoing: "10-20 hours upfront, 2 hours/month"
+            },
+            {
+                title: "Print-on-Demand Store",
+                rating: "7.0/10",
+                budget: 0,
+                effort: "active",
+                income: "medium",
+                timeToMoney: "medium",
+                potential: "$200-3000/mo",
+                setup: "1-4 weeks",
+                description: "Design t-shirts, mugs, phone cases. Printed & shipped automatically when someone orders. Zero inventory risk.",
+                steps: [
+                    "Create designs (Canva, Photoshop, hire designer)",
+                    "Upload to Printful, Printify, Redbubble",
+                    "Connect to Etsy or Shopify store",
+                    "Market via Pinterest, Instagram, ads",
+                    "Orders fulfilled automatically"
+                ],
+                upfront: "$0-200",
+                ongoing: "20 hours setup, 5 hours/month"
+            },
+            {
+                title: "Affiliate Marketing Website",
+                rating: "8.5/10",
+                budget: 100,
+                effort: "active",
+                income: "high",
+                timeToMoney: "slow",
+                potential: "$500-20,000/mo",
+                setup: "3-12 months",
+                description: "Build content site, recommend products, earn commissions. Works 24/7 once ranking on Google.",
+                steps: [
+                    "Pick niche (e.g., 'best camping gear')",
+                    "Buy domain, hosting ($100/year)",
+                    "Write 50-100 helpful articles",
+                    "Join Amazon Associates, ShareASale",
+                    "SEO optimization for free Google traffic"
+                ],
+                upfront: "$100-500",
+                ongoing: "100+ hours upfront, 10 hours/month"
+            },
+            {
+                title: "YouTube Automation Channel",
+                rating: "7.5/10",
+                budget: 500,
+                effort: "semi",
+                income: "medium",
+                timeToMoney: "slow",
+                potential: "$500-10,000/mo",
+                setup: "3-12 months",
+                description: "Faceless YouTube channels using stock footage, voiceovers. Once monetized, runs semi-automatically.",
+                steps: [
+                    "Pick profitable niche (finance, tech, top 10s)",
+                    "Hire scriptwriters (Upwork, $20-50/script)",
+                    "Use stock footage (Pexels, Pixabay)",
+                    "AI voiceovers (ElevenLabs) or hire narrator",
+                    "Monetize at 1000 subs + 4000 watch hours"
+                ],
+                upfront: "$500-2000",
+                ongoing: "20 hours setup, 10 hours/month"
+            },
+            {
+                title: "Dividend ETF Portfolio",
+                rating: "9.0/10",
+                budget: 1000,
+                effort: "passive",
+                income: "medium",
+                timeToMoney: "fast",
+                potential: "$300-3000/mo",
+                setup: "1 day",
+                description: "Buy dividend ETFs for quarterly passive income. True set-it-and-forget-it wealth building.",
+                steps: [
+                    "Open brokerage (Vanguard, Fidelity)",
+                    "Buy SCHD, VYM, or JEPI (dividend ETFs)",
+                    "Collect dividends quarterly",
+                    "Reinvest or use as income",
+                    "3-5% yield typical"
+                ],
+                upfront: "$5,000+",
+                ongoing: "1 hour/month"
+            },
+            {
+                title: "REITs (Real Estate Investment Trusts)",
+                rating: "8.0/10",
+                budget: 500,
+                effort: "passive",
+                income: "medium",
+                timeToMoney: "fast",
+                potential: "$200-2000/mo",
+                setup: "1 day",
+                description: "Own real estate without buying property. REITs must pay 90% of income as dividends. Truly passive.",
+                steps: [
+                    "Research REITs (VNQ, O, VICI)",
+                    "Buy through brokerage account",
+                    "Receive monthly/quarterly dividends",
+                    "Benefits: liquidity, diversification, no tenants",
+                    "Yields: 3-8% typical"
+                ],
+                upfront: "$1,000+",
+                ongoing: "0 hours/month"
+            },
+            {
+                title: "Create Mobile Apps (with ads)",
+                rating: "7.0/10",
+                budget: 500,
+                effort: "active",
+                income: "medium",
+                timeToMoney: "medium",
+                potential: "$100-5000/mo",
+                setup: "1-6 months",
+                description: "Build simple utility apps, monetize with ads. Earn as people use your app. Can hire developers.",
+                steps: [
+                    "Identify problem/need (e.g., budget tracker)",
+                    "Hire developer (Upwork, $500-5000) OR learn to code",
+                    "Integrate Google AdMob for ads",
+                    "Publish to App Store / Google Play",
+                    "Market to get downloads"
+                ],
+                upfront: "$500-5000",
+                ongoing: "80+ hours OR hire developer"
+            },
+            {
+                title: "License Your Photos/Videos",
+                rating: "6.5/10",
+                budget: 0,
+                effort: "active",
+                income: "low",
+                timeToMoney: "medium",
+                potential: "$50-500/mo",
+                setup: "1-3 months",
+                description: "Upload photos to stock sites. Earn royalties every time someone downloads. Great for hobbyist photographers.",
+                steps: [
+                    "Take high-quality photos/videos",
+                    "Upload to Shutterstock, Adobe Stock, Getty",
+                    "Add keywords for searchability",
+                    "Build portfolio of 500-1000+ images",
+                    "Earn $0.25-$5 per download"
+                ],
+                upfront: "$0-1000 (camera)",
+                ongoing: "20+ hours upfront, 5 hours/month"
+            },
+            {
+                title: "Vending Machines Business",
+                rating: "7.5/10",
+                budget: 5000,
+                effort: "semi",
+                income: "medium",
+                timeToMoney: "fast",
+                potential: "$300-2000/mo",
+                setup: "1-4 weeks",
+                description: "Buy vending machines, place in high-traffic locations. Refill weekly. Can scale to dozens of machines.",
+                steps: [
+                    "Buy used vending machines ($1000-3000 each)",
+                    "Secure locations (gyms, offices, laundromats)",
+                    "Stock with popular snacks/drinks",
+                    "Refill weekly (2-3 hours per machine)",
+                    "Each machine: $200-400/month profit"
+                ],
+                upfront: "$2,000-10,000",
+                ongoing: "10-20 hours/month"
+            },
+            {
+                title: "Automated Dropshipping Store",
+                rating: "6.5/10",
+                budget: 500,
+                effort: "semi",
+                income: "medium",
+                timeToMoney: "medium",
+                potential: "$500-5000/mo",
+                setup: "2-4 weeks",
+                description: "Sell products online without inventory. Supplier ships directly to customer. Automate with apps.",
+                steps: [
+                    "Create Shopify store ($29/month)",
+                    "Find winning products (AliExpress, AutoDS)",
+                    "Set up automated order fulfillment",
+                    "Run Facebook/Instagram ads",
+                    "Customer service is main ongoing work"
+                ],
+                upfront: "$500-2000",
+                ongoing: "20 hours setup, 10-15 hours/month"
+            },
+            {
+                title: "Buy & Hold Cryptocurrency",
+                rating: "6.0/10",
+                budget: 100,
+                effort: "passive",
+                income: "high",
+                timeToMoney: "slow",
+                potential: "Variable (-50% to +500%)",
+                setup: "1 day",
+                description: "Buy Bitcoin/Ethereum, hold long-term. High risk but historically returns 100%+ annually. Only invest what you can lose.",
+                steps: [
+                    "Open account (Coinbase, Kraken, Gemini)",
+                    "Dollar-cost average into BTC/ETH",
+                    "Transfer to hardware wallet for security",
+                    "Hold for 5-10 years (don't panic sell)",
+                    "Very volatile but potentially massive gains"
+                ],
+                upfront: "$100+",
+                ongoing: "1 hour/month"
+            },
+            {
+                title: "Peer-to-Peer Lending",
+                rating: "6.0/10",
+                budget: 1000,
+                effort: "passive",
+                income: "low",
+                timeToMoney: "fast",
+                potential: "$100-800/mo",
+                setup: "1 day",
+                description: "Lend money through platforms like Prosper, Upstart. Earn 5-10% interest. Risk: borrowers may default.",
+                steps: [
+                    "Join lending platform",
+                    "Diversify across 100+ loans",
+                    "Earn monthly interest payments",
+                    "Risk: higher than savings, lower than stocks",
+                    "Returns: 5-10% annually"
+                ],
+                upfront: "$1,000+",
+                ongoing: "1 hour/month"
+            },
+            {
+                title: "Create Notion Templates",
+                rating: "8.0/10",
+                budget: 0,
+                effort: "active",
+                income: "medium",
+                timeToMoney: "fast",
+                potential: "$100-3000/mo",
+                setup: "1-4 weeks",
+                description: "Build useful Notion templates, sell on Gumroad. Low competition, high demand. Quick to create.",
+                steps: [
+                    "Identify need (budget tracker, habit tracker, etc.)",
+                    "Build template in Notion (free)",
+                    "Duplicate and clean for selling",
+                    "Sell on Gumroad, Etsy ($10-50 each)",
+                    "Market on Twitter, Reddit, YouTube"
+                ],
+                upfront: "$0",
+                ongoing: "20 hours upfront, 3 hours/month"
+            },
+            {
+                title: "Automated Email Newsletter",
+                rating: "7.5/10",
+                budget: 100,
+                effort: "active",
+                income: "medium",
+                timeToMoney: "slow",
+                potential: "$200-5000/mo",
+                setup: "3-12 months",
+                description: "Build email list, monetize with sponsors/affiliates. Write once a week, earn through recommendations.",
+                steps: [
+                    "Pick niche you're passionate about",
+                    "Start free newsletter (Substack, Beehiiv)",
+                    "Grow to 1000+ subscribers (Twitter, SEO)",
+                    "Monetize: affiliates, sponsors, premium tier",
+                    "$50-500 per sponsor at 5K+ subscribers"
+                ],
+                upfront: "$0-200",
+                ongoing: "60+ hours upfront, 5 hours/week"
+            },
+            {
+                title: "Rent Storage Space (Neighbor)",
+                rating: "7.0/10",
+                budget: 0,
+                effort: "passive",
+                income: "low",
+                timeToMoney: "fast",
+                potential: "$100-500/mo",
+                setup: "1 week",
+                description: "Rent out garage, attic, or basement storage. People pay monthly to store stuff. Truly passive income.",
+                steps: [
+                    "Clear out storage space",
+                    "List on Neighbor.com or StoreAtMyHouse",
+                    "Set monthly rate ($50-200+)",
+                    "Renter stores items, you earn monthly",
+                    "Insurance covered by platform"
+                ],
+                upfront: "$0",
+                ongoing: "2 hours setup, 1 hour/month"
+            }
+        ];
+
+        function filterIdeas() {
+            const budget = document.getElementById('budget').value;
+            const effort = document.getElementById('effort').value;
+            const income = document.getElementById('income').value;
+            const timeToMoney = document.getElementById('timeToMoney').value;
+
+            let filtered = passiveIncomeIdeas;
+
+            // Budget filter
+            if (budget !== 'all') {
+                const maxBudget = parseInt(budget);
+                filtered = filtered.filter(idea => idea.budget <= maxBudget);
+            }
+
+            // Effort filter
+            if (effort !== 'all') {
+                filtered = filtered.filter(idea => idea.effort === effort);
+            }
+
+            // Income filter
+            if (income !== 'all') {
+                filtered = filtered.filter(idea => idea.income === income);
+            }
+
+            // Time to money filter
+            if (timeToMoney !== 'all') {
+                filtered = filtered.filter(idea => idea.timeToMoney === timeToMoney);
+            }
+
+            displayIdeas(filtered);
+        }
+
+        function displayIdeas(ideas) {
+            const container = document.getElementById('ideasContainer');
+
+            if (ideas.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #666;">
+                        <h2>No matches found 😕</h2>
+                        <p>Try adjusting your filters to see more options</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <h2 style="color: #fc466b; margin-bottom: 20px;">💎 ${ideas.length} Perfect Matches Found</h2>
+                <div class="ideas-grid">
+                    ${ideas.map(idea => `
+                        <div class="idea-card">
+                            <div class="idea-header">
+                                <div class="idea-title">${idea.title}</div>
+                                <div class="idea-rating">${idea.rating}</div>
+                            </div>
+
+                            <p class="idea-description">${idea.description}</p>
+
+                            <div class="idea-stats">
+                                <div class="stat">
+                                    <div class="stat-label">Income Potential</div>
+                                    <div class="stat-value">${idea.potential}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Setup Time</div>
+                                    <div class="stat-value">${idea.setup}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Upfront Cost</div>
+                                    <div class="stat-value">${idea.upfront}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Ongoing Work</div>
+                                    <div class="stat-value">${idea.ongoing}</div>
+                                </div>
+                            </div>
+
+                            <div class="badges">
+                                <span class="badge ${idea.income}">${idea.income.toUpperCase()} INCOME</span>
+                                <span class="badge ${idea.effort}">${idea.effort.toUpperCase()}</span>
+                                <span class="badge ${idea.timeToMoney}">${idea.timeToMoney.toUpperCase()} PAYOUT</span>
+                            </div>
+
+                            <div class="steps">
+                                <h4>🚀 How to Start:</h4>
+                                <ol>
+                                    ${idea.steps.map(step => `<li>${step}</li>`).join('')}
+                                </ol>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Show all ideas by default
+        displayIdeas(passiveIncomeIdeas);
+    </script>
+</body>
+</html>

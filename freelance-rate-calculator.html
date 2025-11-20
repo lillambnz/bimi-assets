@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Rate Calculator - Price Your Services Right</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .helper-text {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .results {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .results h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .rate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .rate-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .rate-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .rate-value {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .breakdown {
+            background: white;
+            color: #333;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .breakdown h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .tip-box h3 {
+            color: #d4543e;
+            margin-bottom: 15px;
+        }
+
+        .tip-box ul {
+            color: #333;
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+
+        .market-rates {
+            background: #e3f2fd;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .market-rates h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .market-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .market-item strong {
+            color: #1976d2;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .rate-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💰 Freelance Rate Calculator</h1>
+        <p class="subtitle">Stop Undercharging - Know Your Worth!</p>
+
+        <div class="section">
+            <h2>📊 Your Financial Needs</h2>
+
+            <div class="input-group">
+                <label>💵 Desired Annual Income ($)</label>
+                <input type="number" id="annualIncome" value="60000" min="0">
+                <div class="helper-text">How much do you want to earn per year?</div>
+            </div>
+
+            <div class="input-group">
+                <label>⏰ Billable Hours Per Week</label>
+                <input type="number" id="billableHours" value="25" min="1" max="60">
+                <div class="helper-text">Not all 40 hours are billable! Account for admin, marketing, breaks.</div>
+            </div>
+
+            <div class="input-group">
+                <label>🏖️ Vacation Weeks Per Year</label>
+                <input type="number" id="vacationWeeks" value="2" min="0" max="12">
+                <div class="helper-text">Time off without income</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💼 Business Expenses</h2>
+
+            <div class="input-group">
+                <label>🏥 Healthcare (Annual $)</label>
+                <input type="number" id="healthcare" value="6000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label>🏦 Taxes (% of income)</label>
+                <input type="number" id="taxes" value="30" min="0" max="50">
+                <div class="helper-text">Self-employment tax, federal, state (typically 25-35%)</div>
+            </div>
+
+            <div class="input-group">
+                <label>🛠️ Tools & Software (Annual $)</label>
+                <input type="number" id="tools" value="2000" min="0">
+                <div class="helper-text">Software subscriptions, equipment, etc.</div>
+            </div>
+
+            <div class="input-group">
+                <label>📢 Marketing & Ads (Annual $)</label>
+                <input type="number" id="marketing" value="1000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label>📚 Education & Training (Annual $)</label>
+                <input type="number" id="education" value="1000" min="0">
+            </div>
+
+            <div class="input-group">
+                <label>🏢 Other Business Expenses (Annual $)</label>
+                <input type="number" id="other" value="2000" min="0">
+                <div class="helper-text">Office, insurance, accounting, etc.</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Your Service Type</h2>
+
+            <div class="input-group">
+                <label>💼 Select Your Service Category</label>
+                <select id="serviceType">
+                    <option value="">Select category...</option>
+                    <option value="writing">Writing & Content</option>
+                    <option value="design">Graphic Design</option>
+                    <option value="webdev">Web Development</option>
+                    <option value="marketing">Marketing & SEO</option>
+                    <option value="video">Video Editing</option>
+                    <option value="consulting">Consulting</option>
+                    <option value="va">Virtual Assistant</option>
+                    <option value="coaching">Coaching</option>
+                    <option value="photography">Photography</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>⭐ Experience Level</label>
+                <select id="experience">
+                    <option value="beginner">Beginner (0-1 years)</option>
+                    <option value="intermediate">Intermediate (1-3 years)</option>
+                    <option value="advanced">Advanced (3-5 years)</option>
+                    <option value="expert">Expert (5+ years)</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="calculateRates()">🚀 Calculate My Rates</button>
+
+        <div id="results" style="display: none;">
+            <div class="results">
+                <h2>💎 Your Recommended Rates</h2>
+
+                <div class="rate-grid">
+                    <div class="rate-card">
+                        <div class="rate-label">Minimum Hourly Rate</div>
+                        <div class="rate-value" id="minRate">$0</div>
+                    </div>
+
+                    <div class="rate-card">
+                        <div class="rate-label">Target Hourly Rate</div>
+                        <div class="rate-value" id="targetRate">$0</div>
+                    </div>
+
+                    <div class="rate-card">
+                        <div class="rate-label">Premium Rate</div>
+                        <div class="rate-value" id="premiumRate">$0</div>
+                    </div>
+                </div>
+
+                <div class="breakdown">
+                    <h3>💡 Rate Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span>Desired Annual Income</span>
+                        <span id="breakIncome">$0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Total Business Expenses</span>
+                        <span id="breakExpenses">$0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Tax Reserve (30%)</span>
+                        <span id="breakTaxes">$0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Annual Hours Available</span>
+                        <span id="breakHours">0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>You Need to Earn</span>
+                        <span id="breakTotal">$0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="market-rates">
+                <h3>📈 Market Rate Comparison for <span id="marketCategory"></span></h3>
+                <div id="marketData"></div>
+            </div>
+
+            <div class="tip-box">
+                <h3>🎯 Pricing Strategy Tips</h3>
+                <ul>
+                    <li><strong>Start at Target Rate:</strong> Don't undercharge! You calculated your worth scientifically.</li>
+                    <li><strong>Offer Package Pricing:</strong> Bundle services for higher perceived value (3 blog posts = $X instead of hourly).</li>
+                    <li><strong>Raise Rates Regularly:</strong> Increase 10-20% every 6-12 months as you gain experience and testimonials.</li>
+                    <li><strong>Premium Pricing:</strong> Charge premium rates to established clients, complex projects, or rush jobs.</li>
+                    <li><strong>Value-Based Pricing:</strong> For high-impact work (marketing that generates $10K), charge based on value not time.</li>
+                    <li><strong>Never Negotiate Down More Than 10%:</strong> Protect your rates. If you discount, add value instead.</li>
+                    <li><strong>Test Higher Rates:</strong> Every 5th prospect, quote premium rate. You'll be surprised how many say yes!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const marketRates = {
+            writing: {
+                name: "Writing & Content",
+                beginner: "$25-40/hr or $0.05-0.10/word",
+                intermediate: "$40-75/hr or $0.10-0.25/word",
+                advanced: "$75-150/hr or $0.25-0.50/word",
+                expert: "$150-300+/hr or $0.50-1.00+/word"
+            },
+            design: {
+                name: "Graphic Design",
+                beginner: "$25-45/hr",
+                intermediate: "$45-85/hr",
+                advanced: "$85-150/hr",
+                expert: "$150-300+/hr"
+            },
+            webdev: {
+                name: "Web Development",
+                beginner: "$40-65/hr",
+                intermediate: "$65-100/hr",
+                advanced: "$100-175/hr",
+                expert: "$175-350+/hr"
+            },
+            marketing: {
+                name: "Marketing & SEO",
+                beginner: "$30-50/hr",
+                intermediate: "$50-90/hr",
+                advanced: "$90-175/hr",
+                expert: "$175-400+/hr"
+            },
+            video: {
+                name: "Video Editing",
+                beginner: "$25-45/hr",
+                intermediate: "$45-75/hr",
+                advanced: "$75-150/hr",
+                expert: "$150-300+/hr"
+            },
+            consulting: {
+                name: "Consulting",
+                beginner: "$50-100/hr",
+                intermediate: "$100-200/hr",
+                advanced: "$200-400/hr",
+                expert: "$400-1000+/hr"
+            },
+            va: {
+                name: "Virtual Assistant",
+                beginner: "$15-25/hr",
+                intermediate: "$25-40/hr",
+                advanced: "$40-65/hr",
+                expert: "$65-100+/hr"
+            },
+            coaching: {
+                name: "Coaching",
+                beginner: "$50-100/hr",
+                intermediate: "$100-200/hr",
+                advanced: "$200-350/hr",
+                expert: "$350-1000+/hr"
+            },
+            photography: {
+                name: "Photography",
+                beginner: "$50-100/hr",
+                intermediate: "$100-200/hr",
+                advanced: "$200-400/hr",
+                expert: "$400-1000+/hr"
+            },
+            other: {
+                name: "Your Service",
+                beginner: "$25-50/hr",
+                intermediate: "$50-100/hr",
+                advanced: "$100-200/hr",
+                expert: "$200-500+/hr"
+            }
+        };
+
+        function calculateRates() {
+            // Get inputs
+            const annualIncome = parseFloat(document.getElementById('annualIncome').value) || 0;
+            const billableHours = parseFloat(document.getElementById('billableHours').value) || 25;
+            const vacationWeeks = parseFloat(document.getElementById('vacationWeeks').value) || 2;
+            const healthcare = parseFloat(document.getElementById('healthcare').value) || 0;
+            const taxesPercent = parseFloat(document.getElementById('taxes').value) || 30;
+            const tools = parseFloat(document.getElementById('tools').value) || 0;
+            const marketing = parseFloat(document.getElementById('marketing').value) || 0;
+            const education = parseFloat(document.getElementById('education').value) || 0;
+            const other = parseFloat(document.getElementById('other').value) || 0;
+            const serviceType = document.getElementById('serviceType').value;
+            const experience = document.getElementById('experience').value;
+
+            // Calculate
+            const workWeeks = 52 - vacationWeeks;
+            const annualBillableHours = billableHours * workWeeks;
+            const totalExpenses = healthcare + tools + marketing + education + other;
+            const taxReserve = (annualIncome + totalExpenses) * (taxesPercent / 100);
+            const totalNeeded = annualIncome + totalExpenses + taxReserve;
+
+            // Calculate rates
+            const minimumRate = Math.ceil(totalNeeded / annualBillableHours);
+            const targetRate = Math.ceil(minimumRate * 1.2); // 20% buffer
+            const premiumRate = Math.ceil(minimumRate * 1.5); // 50% premium
+
+            // Display results
+            document.getElementById('minRate').textContent = `$${minimumRate}`;
+            document.getElementById('targetRate').textContent = `$${targetRate}`;
+            document.getElementById('premiumRate').textContent = `$${premiumRate}`;
+
+            document.getElementById('breakIncome').textContent = `$${annualIncome.toLocaleString()}`;
+            document.getElementById('breakExpenses').textContent = `$${totalExpenses.toLocaleString()}`;
+            document.getElementById('breakTaxes').textContent = `$${Math.ceil(taxReserve).toLocaleString()}`;
+            document.getElementById('breakHours').textContent = `${annualBillableHours} hours`;
+            document.getElementById('breakTotal').textContent = `$${Math.ceil(totalNeeded).toLocaleString()}`;
+
+            // Market rates
+            if (serviceType && marketRates[serviceType]) {
+                const rates = marketRates[serviceType];
+                document.getElementById('marketCategory').textContent = rates.name;
+                document.getElementById('marketData').innerHTML = `
+                    <div class="market-grid">
+                        <div class="market-item">
+                            <strong>Beginner</strong>
+                            ${rates.beginner}
+                        </div>
+                        <div class="market-item">
+                            <strong>Intermediate</strong>
+                            ${rates.intermediate}
+                        </div>
+                        <div class="market-item">
+                            <strong>Advanced</strong>
+                            ${rates.advanced}
+                        </div>
+                        <div class="market-item">
+                            <strong>Expert</strong>
+                            ${rates.expert}
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                        <strong style="color: #1976d2;">💡 Your Level (${experience}):</strong>
+                        ${rates[experience]}
+                    </div>
+                `;
+            }
+
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

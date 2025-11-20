@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Hustle Empire Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-color: #1e3c72;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #1e3c72;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
+        .badge.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge.high {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .badge.remote {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        button {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.4);
+        }
+
+        .hustle-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #1e3c72;
+        }
+
+        .hustle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .hustle-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .hustle-earnings {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .hustle-details {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            padding: 8px 15px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #ff9a56;
+        }
+
+        .tip-box h4 {
+            color: #d4543e;
+            margin-bottom: 10px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: white;
+            color: #1e3c72;
+            border: 2px solid #1e3c72;
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+
+        .filter-btn.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💼 Side Hustle Empire Builder</h1>
+        <p class="subtitle">Discover, Track, and Scale Your Income Streams</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('discover')">🔍 Discover</div>
+            <div class="tab" onclick="switchTab('tracker')">📊 My Hustles</div>
+            <div class="tab" onclick="switchTab('planner')">📅 Action Plan</div>
+            <div class="tab" onclick="switchTab('resources')">🎓 Resources</div>
+        </div>
+
+        <!-- Discover Tab -->
+        <div id="discover" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">💰 Average Side Income</div>
+                    <div class="stat-value">$1000</div>
+                    <div class="stat-label">per month possible</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">⏰ Time to Start</div>
+                    <div class="stat-value">1-7</div>
+                    <div class="stat-label">days for most</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">📈 Success Rate</div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">with consistency</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🚀 Best Side Hustles for 2025</h2>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active" onclick="filterHustles('all')">All</button>
+                    <button class="filter-btn" onclick="filterHustles('easy')">Easy Start</button>
+                    <button class="filter-btn" onclick="filterHustles('high')">High Income</button>
+                    <button class="filter-btn" onclick="filterHustles('remote')">Remote</button>
+                </div>
+
+                <div class="grid" id="hustleGrid">
+                    <!-- Hustles will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tracker Tab -->
+        <div id="tracker" class="tab-content">
+            <div class="section">
+                <h2>💼 Track Your Side Hustles</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Monthly Income</div>
+                        <div class="stat-value" id="totalIncome">$0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Active Hustles</div>
+                        <div class="stat-value" id="activeHustles">0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Hours Per Week</div>
+                        <div class="stat-value" id="totalHours">0</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-label">Hourly Rate</div>
+                        <div class="stat-value" id="hourlyRate">$0</div>
+                    </div>
+                </div>
+
+                <h3>Add New Hustle</h3>
+                <input type="text" id="hustleName" placeholder="Hustle name (e.g., Freelance Writing)">
+                <input type="number" id="hustleIncome" placeholder="Monthly income ($)" min="0">
+                <input type="number" id="hustleHours" placeholder="Hours per week" min="0">
+                <textarea id="hustleNotes" placeholder="Notes, clients, goals..." rows="3"></textarea>
+                <button onclick="addHustle()">➕ Add Hustle</button>
+
+                <div style="margin-top: 30px;">
+                    <h3>Your Active Side Hustles</h3>
+                    <div id="hustlesList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planner Tab -->
+        <div id="planner" class="tab-content">
+            <div class="section">
+                <h2>📅 30-Day Action Plan</h2>
+
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>🎯 Week 1: Research & Setup</h3>
+                    <p>✅ Choose 2-3 side hustles that match your skills<br>
+                    ✅ Research requirements and competition<br>
+                    ✅ Set up necessary accounts (Upwork, Fiverr, etc.)<br>
+                    ✅ Create portfolio or samples<br>
+                    ✅ Set income goal: $______/month</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>🚀 Week 2: Launch</h3>
+                    <p>✅ Create 3-5 service listings/gigs<br>
+                    ✅ Apply to 10+ opportunities<br>
+                    ✅ Network in relevant communities<br>
+                    ✅ Offer intro discount (10-20% off)<br>
+                    ✅ Get first client/sale</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>💪 Week 3: Build Momentum</h3>
+                    <p>✅ Deliver exceptional work to first clients<br>
+                    ✅ Ask for reviews/testimonials<br>
+                    ✅ Apply to 20+ more opportunities<br>
+                    ✅ Adjust pricing based on demand<br>
+                    ✅ Goal: 3-5 clients/sales</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px;">
+                    <h3>📈 Week 4: Scale</h3>
+                    <p>✅ Raise prices (you have reviews now!)<br>
+                    ✅ Focus on high-paying clients<br>
+                    ✅ Create systems/templates<br>
+                    ✅ Reinvest earnings in tools/ads<br>
+                    ✅ Goal: $500-1000 earned</p>
+                </div>
+
+                <div class="tip-box">
+                    <h4>💡 Pro Tips for Success</h4>
+                    <p>
+                        🔥 Start tonight - not tomorrow<br>
+                        🔥 Consistency beats intensity - work 1-2 hours daily<br>
+                        🔥 Underpromise, overdeliver - get those 5-star reviews<br>
+                        🔥 Niche down - be the best at ONE thing first<br>
+                        🔥 Track everything - what gets measured gets improved
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content">
+            <div class="section">
+                <h2>🎓 Learning Resources & Platforms</h2>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>💼 Freelancing Platforms</h3>
+                        <p><strong>Upwork:</strong> General freelancing (writing, design, dev)<br>
+                        <strong>Fiverr:</strong> Gig-based services ($5-$10,000+)<br>
+                        <strong>Toptal:</strong> Premium clients (higher rates)<br>
+                        <strong>99designs:</strong> Design contests & projects<br>
+                        <strong>Freelancer:</strong> Global marketplace</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎨 Creative Work</h3>
+                        <p><strong>Etsy:</strong> Handmade & digital products<br>
+                        <strong>Redbubble:</strong> Print-on-demand designs<br>
+                        <strong>Creative Market:</strong> Templates, graphics<br>
+                        <strong>Shutterstock:</strong> Stock photos/videos<br>
+                        <strong>Gumroad:</strong> Sell digital products</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>💻 Tech & Development</h3>
+                        <p><strong>GitHub:</strong> Showcase code portfolio<br>
+                        <strong>Stack Overflow Jobs:</strong> Dev opportunities<br>
+                        <strong>CodePen:</strong> Frontend portfolio<br>
+                        <strong>Toptal:</strong> Elite developer network<br>
+                        <strong>Gun.io:</strong> Freelance dev platform</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>📝 Content & Writing</h3>
+                        <p><strong>Medium:</strong> Paid writing program<br>
+                        <strong>Contently:</strong> Content marketing<br>
+                        <strong>Scripted:</strong> Freelance writing<br>
+                        <strong>Textbroker:</strong> Article writing<br>
+                        <strong>WriterAccess:</strong> Content marketplace</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎓 Teaching & Tutoring</h3>
+                        <p><strong>VIPKid:</strong> Teach English online ($14-22/hr)<br>
+                        <strong>Udemy:</strong> Create & sell courses<br>
+                        <strong>Skillshare:</strong> Teaching platform<br>
+                        <strong>Chegg:</strong> Online tutoring<br>
+                        <strong>Wyzant:</strong> Private tutoring</p>
+                    </div>
+
+                    <div class="card">
+                        <h3>🏠 Local Services</h3>
+                        <p><strong>TaskRabbit:</strong> Handyman, moving, etc<br>
+                        <strong>Rover:</strong> Pet sitting & dog walking<br>
+                        <strong>Care.com:</strong> Childcare, eldercare<br>
+                        <strong>Thumbtack:</strong> Local services<br>
+                        <strong>Handy:</strong> Cleaning & handyman</p>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h4>🎯 Quick Start Checklist</h4>
+                    <p>
+                        ✅ Pick ONE platform to start<br>
+                        ✅ Create professional profile (photo, bio, portfolio)<br>
+                        ✅ Set competitive intro pricing<br>
+                        ✅ Apply/list 5 services today<br>
+                        ✅ Spend 30 min daily for 30 days<br>
+                        ✅ Track everything in the Tracker tab<br>
+                        ✅ Reinvest first $100 in better tools/marketing
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hustleDatabase = [
+            {
+                name: "Freelance Writing",
+                income: "$500-3000/mo",
+                difficulty: "easy",
+                potential: "high",
+                type: "remote",
+                description: "Write articles, blog posts, and content for businesses. High demand, easy to start.",
+                skills: "Good writing, research",
+                startTime: "1-3 days"
+            },
+            {
+                name: "Social Media Management",
+                income: "$400-2500/mo",
+                difficulty: "easy",
+                potential: "high",
+                type: "remote",
+                description: "Manage social accounts for small businesses. They need help but can't afford full-time staff.",
+                skills: "Social media knowledge",
+                startTime: "1 day"
+            },
+            {
+                name: "Virtual Assistant",
+                income: "$300-2000/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "remote",
+                description: "Handle emails, scheduling, admin tasks for entrepreneurs and busy professionals.",
+                skills: "Organization, communication",
+                startTime: "1-2 days"
+            },
+            {
+                name: "Print-on-Demand",
+                income: "$200-5000/mo",
+                difficulty: "easy",
+                potential: "high",
+                type: "remote",
+                description: "Design t-shirts, mugs, etc. Printed & shipped automatically when someone orders.",
+                skills: "Basic design skills",
+                startTime: "2-3 days"
+            },
+            {
+                name: "YouTube Channel",
+                income: "$100-10000+/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Create videos on topics you know. Monetize through ads, sponsors, and affiliate links.",
+                skills: "Video editing, consistency",
+                startTime: "1-7 days"
+            },
+            {
+                name: "Dropshipping",
+                income: "$500-5000/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Sell products online without holding inventory. Supplier ships directly to customer.",
+                skills: "Marketing, e-commerce",
+                startTime: "3-7 days"
+            },
+            {
+                name: "Web Design",
+                income: "$1000-5000/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Build websites for small businesses. Use templates like WordPress, charge $500-3000 per site.",
+                skills: "Web design, WordPress",
+                startTime: "7-14 days"
+            },
+            {
+                name: "Online Tutoring",
+                income: "$300-2000/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "remote",
+                description: "Teach English, math, or any subject you're good at. Flexible schedule.",
+                skills: "Subject expertise, patience",
+                startTime: "1-3 days"
+            },
+            {
+                name: "Affiliate Marketing",
+                income: "$100-10000+/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Promote other people's products, earn commission on sales. Build audience first.",
+                skills: "Marketing, content creation",
+                startTime: "1-7 days"
+            },
+            {
+                name: "Graphic Design",
+                income: "$400-3000/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Create logos, social media graphics, brand materials. High demand skill.",
+                skills: "Design tools (Canva/Photoshop)",
+                startTime: "3-7 days"
+            },
+            {
+                name: "Dog Walking / Pet Sitting",
+                income: "$300-1500/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "local",
+                description: "Walk dogs or watch pets while owners are away. Use Rover app.",
+                skills: "Love animals, reliability",
+                startTime: "1 day"
+            },
+            {
+                name: "Photography",
+                income: "$400-3000/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "local",
+                description: "Events, portraits, real estate, products. Start with phone camera if needed.",
+                skills: "Photography, editing",
+                startTime: "1-7 days"
+            },
+            {
+                name: "Lawn Care / Landscaping",
+                income: "$500-3000/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "local",
+                description: "Mow lawns, rake leaves, basic yard work. Low startup cost, immediate income.",
+                skills: "Physical work, reliability",
+                startTime: "1 day"
+            },
+            {
+                name: "House Cleaning",
+                income: "$400-2500/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "local",
+                description: "Clean homes for busy families. Recurring income from regular clients.",
+                skills: "Attention to detail, reliability",
+                startTime: "1 day"
+            },
+            {
+                name: "Handyman Services",
+                income: "$600-3000/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "local",
+                description: "Fix things, assemble furniture, basic repairs. People always need help.",
+                skills: "Basic repair skills, tools",
+                startTime: "1-3 days"
+            },
+            {
+                name: "Car Detailing",
+                income: "$400-2000/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "local",
+                description: "Deep clean cars inside and out. Charge $75-150 per car, 2-3 hours each.",
+                skills: "Attention to detail",
+                startTime: "1-2 days"
+            },
+            {
+                name: "Rent Your Car (Turo)",
+                income: "$200-1000/mo",
+                difficulty: "easy",
+                potential: "medium",
+                type: "passive",
+                description: "List your car on Turo when you're not using it. Passive income from asset.",
+                skills: "Own a car",
+                startTime: "1 day"
+            },
+            {
+                name: "Rent Your Space (Airbnb)",
+                income: "$500-3000/mo",
+                difficulty: "easy",
+                potential: "high",
+                type: "passive",
+                description: "Rent spare room or entire place. Great passive income if in good location.",
+                skills: "Own/rent property",
+                startTime: "3-7 days"
+            },
+            {
+                name: "Create Digital Products",
+                income: "$100-5000+/mo",
+                difficulty: "medium",
+                potential: "high",
+                type: "remote",
+                description: "Notion templates, spreadsheets, PDFs, courses. Create once, sell forever.",
+                skills: "Expertise in something",
+                startTime: "7-14 days"
+            },
+            {
+                name: "Amazon FBA",
+                income: "$500-10000+/mo",
+                difficulty: "hard",
+                potential: "high",
+                type: "remote",
+                description: "Sell products on Amazon, they handle storage and shipping. Requires investment.",
+                skills: "Product research, marketing",
+                startTime: "14-30 days"
+            }
+        ];
+
+        let myHustles = JSON.parse(localStorage.getItem('myHustles') || '[]');
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'tracker') {
+                renderMyHustles();
+            }
+        }
+
+        function filterHustles(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            const grid = document.getElementById('hustleGrid');
+            let filtered = hustleDatabase;
+
+            if (filter === 'easy') {
+                filtered = hustleDatabase.filter(h => h.difficulty === 'easy');
+            } else if (filter === 'high') {
+                filtered = hustleDatabase.filter(h => h.potential === 'high');
+            } else if (filter === 'remote') {
+                filtered = hustleDatabase.filter(h => h.type === 'remote');
+            }
+
+            grid.innerHTML = filtered.map(hustle => `
+                <div class="card">
+                    <h3>${hustle.name}</h3>
+                    <p><strong>Income:</strong> ${hustle.income}</p>
+                    <p>${hustle.description}</p>
+                    <p><strong>Required Skills:</strong> ${hustle.skills}</p>
+                    <p><strong>Start Time:</strong> ${hustle.startTime}</p>
+                    <div>
+                        <span class="badge ${hustle.difficulty}">${hustle.difficulty.toUpperCase()}</span>
+                        <span class="badge ${hustle.potential}">${hustle.potential.toUpperCase()} INCOME</span>
+                        <span class="badge ${hustle.type}">${hustle.type.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addHustle() {
+            const name = document.getElementById('hustleName').value;
+            const income = parseFloat(document.getElementById('hustleIncome').value);
+            const hours = parseFloat(document.getElementById('hustleHours').value);
+            const notes = document.getElementById('hustleNotes').value;
+
+            if (!name || !income || !hours) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            const hustle = {
+                id: Date.now(),
+                name,
+                income,
+                hours,
+                notes,
+                dateAdded: new Date().toISOString()
+            };
+
+            myHustles.push(hustle);
+            localStorage.setItem('myHustles', JSON.stringify(myHustles));
+
+            // Clear form
+            document.getElementById('hustleName').value = '';
+            document.getElementById('hustleIncome').value = '';
+            document.getElementById('hustleHours').value = '';
+            document.getElementById('hustleNotes').value = '';
+
+            renderMyHustles();
+        }
+
+        function deleteHustle(id) {
+            myHustles = myHustles.filter(h => h.id !== id);
+            localStorage.setItem('myHustles', JSON.stringify(myHustles));
+            renderMyHustles();
+        }
+
+        function renderMyHustles() {
+            const totalIncome = myHustles.reduce((sum, h) => sum + h.income, 0);
+            const totalHours = myHustles.reduce((sum, h) => sum + h.hours, 0);
+            const hourlyRate = totalHours > 0 ? (totalIncome / (totalHours * 4.33)) : 0;
+
+            document.getElementById('totalIncome').textContent = `$${totalIncome}`;
+            document.getElementById('activeHustles').textContent = myHustles.length;
+            document.getElementById('totalHours').textContent = totalHours;
+            document.getElementById('hourlyRate').textContent = `$${hourlyRate.toFixed(0)}`;
+
+            const list = document.getElementById('hustlesList');
+
+            if (myHustles.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">No hustles tracked yet. Add your first one above!</p>';
+                return;
+            }
+
+            list.innerHTML = myHustles.map(h => `
+                <div class="hustle-item">
+                    <div class="hustle-header">
+                        <div class="hustle-name">${h.name}</div>
+                        <div class="hustle-earnings">$${h.income}/mo</div>
+                    </div>
+                    <div class="hustle-details">⏰ ${h.hours} hours/week</div>
+                    <div class="hustle-details">📝 ${h.notes || 'No notes'}</div>
+                    <div class="hustle-details">📅 Started: ${new Date(h.dateAdded).toLocaleDateString()}</div>
+                    <button class="delete-btn" onclick="deleteHustle(${h.id})">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        // Initialize
+        filterHustles('all');
+        renderMyHustles();
+    </script>
+</body>
+</html>

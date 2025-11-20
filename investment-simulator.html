@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Simulator - Watch Your Wealth Grow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #11998e;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #11998e;
+            color: white;
+            border-color: #11998e;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border-color: #11998e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #11998e;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #11998e;
+        }
+
+        .helper-text {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        button {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(17, 153, 142, 0.4);
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .result-label {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .comparison-card {
+            background: white;
+            color: #333;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .comparison-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .comparison-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #11998e;
+            margin: 10px 0;
+        }
+
+        .breakdown {
+            background: white;
+            color: #333;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .breakdown h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .tip-box h3 {
+            color: #d4543e;
+            margin-bottom: 15px;
+        }
+
+        .tip-box p, .tip-box ul {
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .tip-box ul {
+            margin-left: 20px;
+        }
+
+        .scenario-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #11998e;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .scenario-card h3 {
+            color: #11998e;
+            margin-bottom: 10px;
+        }
+
+        .chart-placeholder {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .year-by-year {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .year-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .year-row:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .year-row strong {
+            color: #11998e;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .result-value {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📈 Investment Simulator</h1>
+        <p class="subtitle">See The REAL Power of Compound Interest</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('calculator')">🧮 Calculator</div>
+            <div class="tab" onclick="switchTab('scenarios')">🎯 Real Scenarios</div>
+            <div class="tab" onclick="switchTab('strategies')">💡 Strategies</div>
+            <div class="tab" onclick="switchTab('education')">📚 Learn</div>
+        </div>
+
+        <!-- Calculator Tab -->
+        <div id="calculator" class="tab-content active">
+            <div class="section">
+                <h2>💰 Compound Interest Calculator</h2>
+
+                <div class="input-group">
+                    <label>Initial Investment ($)</label>
+                    <input type="number" id="principal" value="1000" min="0">
+                    <div class="helper-text">How much are you starting with?</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Monthly Contribution ($)</label>
+                    <input type="number" id="monthly" value="200" min="0">
+                    <div class="helper-text">How much can you invest each month?</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Annual Return Rate (%)</label>
+                    <input type="number" id="rate" value="10" min="0" max="100" step="0.1">
+                    <div class="helper-text">S&P 500 averages ~10% per year historically</div>
+                </div>
+
+                <div class="input-group">
+                    <label>Time Period (Years)</label>
+                    <input type="number" id="years" value="30" min="1" max="50">
+                    <div class="helper-text">How long will you invest?</div>
+                </div>
+
+                <button onclick="calculate()">🚀 Calculate My Future Wealth</button>
+
+                <div id="results" style="display: none;">
+                    <div class="result-box">
+                        <div class="result-label">Your Investment Will Grow To:</div>
+                        <div class="result-value" id="finalAmount">$0</div>
+                        <div class="result-label">That's <span id="growth">0</span>x your money!</div>
+                    </div>
+
+                    <div class="breakdown">
+                        <h3>💡 Breakdown</h3>
+                        <div class="breakdown-item">
+                            <span>Total You Invested</span>
+                            <strong id="totalInvested">$0</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Investment Earnings</span>
+                            <strong id="earnings" style="color: #11998e;">$0</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Final Balance</span>
+                            <strong id="finalBalance" style="color: #667eea; font-size: 1.3em;">$0</strong>
+                        </div>
+                    </div>
+
+                    <div class="year-by-year" id="yearByYear"></div>
+
+                    <div class="tip-box">
+                        <h3>🎯 What This Means For You</h3>
+                        <p id="interpretation"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scenarios Tab -->
+        <div id="scenarios" class="tab-content">
+            <div class="section">
+                <h2>🎯 Real-Life Investment Scenarios</h2>
+                <p style="margin-bottom: 20px; color: #666;">Click any scenario to see the numbers!</p>
+
+                <div class="scenario-card" onclick="loadScenario('teen')">
+                    <h3>👨‍🎓 The Smart Teen (Start at 15)</h3>
+                    <p><strong>Scenario:</strong> Invest $100/month from age 15 to 25 (10 years), then STOP.<br>
+                    <strong>Total Invested:</strong> Only $12,000<br>
+                    <strong>Age 65 Balance:</strong> <span style="color: #11998e; font-weight: bold;">$588,000+</span></p>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('late')">
+                    <h3>😰 The Late Starter (Start at 35)</h3>
+                    <p><strong>Scenario:</strong> Invest $100/month from age 35 to 65 (30 years)<br>
+                    <strong>Total Invested:</strong> $36,000<br>
+                    <strong>Age 65 Balance:</strong> <span style="color: #f45c43; font-weight: bold;">$227,000</span></p>
+                    <p style="margin-top: 10px; font-style: italic;">The teen who stopped at 25 has MORE money! Time > Money!</p>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('aggressive')">
+                    <h3>🚀 The Aggressive Saver</h3>
+                    <p><strong>Scenario:</strong> $500/month for 25 years at 10% return<br>
+                    <strong>Total Invested:</strong> $150,000<br>
+                    <strong>Final Balance:</strong> <span style="color: #11998e; font-weight: bold;">$664,000+</span></p>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('millionaire')">
+                    <h3>💎 The Millionaire Path</h3>
+                    <p><strong>Scenario:</strong> How to reach $1,000,000<br>
+                    <strong>Option 1:</strong> $400/month for 35 years<br>
+                    <strong>Option 2:</strong> $700/month for 25 years<br>
+                    <strong>Option 3:</strong> $1,500/month for 15 years</p>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('retirement')">
+                    <h3>🏖️ Comfortable Retirement</h3>
+                    <p><strong>Goal:</strong> $2,000/month passive income in retirement<br>
+                    <strong>Need:</strong> ~$600,000 invested (4% withdrawal rule)<br>
+                    <strong>Path:</strong> $350/month for 30 years OR $650/month for 20 years</p>
+                </div>
+
+                <div class="scenario-card" onclick="loadScenario('debt')">
+                    <h3>⚠️ The Cost of Waiting</h3>
+                    <p><strong>Scenario:</strong> Wait 10 years to start investing<br>
+                    <strong>Cost:</strong> Starting at 25 vs 35 costs you $361,000!<br>
+                    <strong>Lesson:</strong> Every year you wait costs MASSIVE money</p>
+                </div>
+
+                <div id="scenarioResult"></div>
+            </div>
+        </div>
+
+        <!-- Strategies Tab -->
+        <div id="strategies" class="tab-content">
+            <div class="section">
+                <h2>💡 Proven Investment Strategies</h2>
+
+                <div class="scenario-card">
+                    <h3>1. 🎯 Index Fund Investing (Beginner-Friendly)</h3>
+                    <p><strong>What:</strong> Buy S&P 500 index fund (tracks 500 biggest US companies)<br>
+                    <strong>Why:</strong> Historically returns ~10% per year, low fees, diversified<br>
+                    <strong>How:</strong> Use Vanguard (VTSAX), Fidelity (FZROX), or Schwab (SWTSX)<br>
+                    <strong>Risk:</strong> Low-Medium (market goes up and down, but up long-term)<br>
+                    <strong>Best For:</strong> Long-term wealth building (10+ years)</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>2. 💼 Dollar Cost Averaging</h3>
+                    <p><strong>What:</strong> Invest same amount every month, regardless of price<br>
+                    <strong>Why:</strong> Removes emotion, averages out market ups/downs<br>
+                    <strong>Example:</strong> $200/month every month for 20 years<br>
+                    <strong>Benefit:</strong> Buy more shares when prices are low, less when high<br>
+                    <strong>Result:</strong> Proven to beat trying to "time the market"</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>3. 🏆 The 3-Fund Portfolio</h3>
+                    <p><strong>What:</strong> Split money between 3 fund types<br>
+                    <strong>Allocation:</strong><br>
+                    • 60% US Stock Index (growth)<br>
+                    • 30% International Stock Index (diversification)<br>
+                    • 10% Bond Index (stability)<br>
+                    <strong>Why:</strong> Balanced risk and reward, globally diversified<br>
+                    <strong>Rebalance:</strong> Once a year to maintain percentages</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>4. 🎓 Invest in Yourself FIRST</h3>
+                    <p><strong>What:</strong> Before investing in stocks, invest in skills<br>
+                    <strong>Why:</strong> Skills can return 10x-100x your investment<br>
+                    <strong>Examples:</strong><br>
+                    • $1,000 coding bootcamp → $30K+ raise<br>
+                    • $500 marketing course → $2K/month clients<br>
+                    • $200 book + practice → new career path<br>
+                    <strong>Strategy:</strong> First $5K goes to skills, rest to index funds</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>5. 🔥 The FIRE Movement</h3>
+                    <p><strong>FIRE:</strong> Financial Independence, Retire Early<br>
+                    <strong>Goal:</strong> Save 25x your annual expenses, retire on 4% withdrawal<br>
+                    <strong>Example:</strong> Need $40K/year → Save $1,000,000<br>
+                    <strong>Strategy:</strong><br>
+                    • Save 50-70% of income<br>
+                    • Live below means<br>
+                    • Invest in index funds<br>
+                    • Reach FI in 10-15 years instead of 40+</p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>6. 📊 Tax-Advantaged Accounts</h3>
+                    <p><strong>Roth IRA:</strong> Invest after-tax money, withdraw tax-free in retirement<br>
+                    <strong>401(k):</strong> Employer retirement, often with company match (FREE MONEY!)<br>
+                    <strong>Strategy:</strong><br>
+                    1. Max employer 401(k) match first (instant 50-100% return!)<br>
+                    2. Max Roth IRA ($6,500/year)<br>
+                    3. Max 401(k) ($22,500/year)<br>
+                    4. Then invest in taxable accounts<br>
+                    <strong>Benefit:</strong> Save thousands in taxes over lifetime</p>
+                </div>
+
+                <div class="tip-box">
+                    <h3>🎯 The Winning Formula</h3>
+                    <p>
+                        <strong>1. Earn More:</strong> Side hustles, skills, raises (offense)<br>
+                        <strong>2. Spend Less:</strong> Budget, cut waste (defense)<br>
+                        <strong>3. Invest Difference:</strong> Index funds, consistent (growth)<br>
+                        <strong>4. Stay Patient:</strong> Time is your superpower (discipline)<br>
+                        <strong>5. Never Stop:</strong> Keep learning and earning (compound everything)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Tab -->
+        <div id="education" class="tab-content">
+            <div class="section">
+                <h2>📚 Investment Education</h2>
+
+                <div class="scenario-card">
+                    <h3>🧠 Key Concepts to Master</h3>
+                    <p>
+                        <strong>Compound Interest:</strong> Earning interest on your interest. Einstein called it the 8th wonder of the world.<br><br>
+                        <strong>The Rule of 72:</strong> Divide 72 by your return rate to see how long to double your money. (10% return = 72/10 = 7.2 years)<br><br>
+                        <strong>Time in Market > Timing Market:</strong> Staying invested always beats trying to guess market moves.<br><br>
+                        <strong>Asset Allocation:</strong> How you split money between stocks, bonds, cash. Changes with age and goals.<br><br>
+                        <strong>Diversification:</strong> Don't put all eggs in one basket. Spread across many investments.<br><br>
+                        <strong>4% Rule:</strong> You can safely withdraw 4% of portfolio annually in retirement without running out.
+                    </p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>📖 Recommended Reading</h3>
+                    <p>
+                        1. <strong>"The Simple Path to Wealth"</strong> by JL Collins - Best beginner book<br>
+                        2. <strong>"The Millionaire Next Door"</strong> - How real millionaires think<br>
+                        3. <strong>"Rich Dad Poor Dad"</strong> - Financial mindset<br>
+                        4. <strong>"The Little Book of Common Sense Investing"</strong> by John Bogle<br>
+                        5. <strong>"I Will Teach You to Be Rich"</strong> by Ramit Sethi
+                    </p>
+                </div>
+
+                <div class="scenario-card">
+                    <h3>🎓 Free Resources</h3>
+                    <p>
+                        <strong>YouTube Channels:</strong><br>
+                        • Graham Stephan - Real estate & investing<br>
+                        • Andrei Jikh - Personal finance<br>
+                        • The Plain Bagel - Investment concepts<br><br>
+                        <strong>Subreddits:</strong><br>
+                        • r/personalfinance - General money advice<br>
+                        • r/financialindependence - FIRE movement<br>
+                        • r/Bogleheads - Index investing<br><br>
+                        <strong>Podcasts:</strong><br>
+                        • ChooseFI<br>
+                        • BiggerPockets Money<br>
+                        • The Dave Ramsey Show
+                    </p>
+                </div>
+
+                <div class="tip-box">
+                    <h3>🚀 Action Plan: Start Today</h3>
+                    <p>
+                        <strong>Week 1:</strong> Open brokerage account (Vanguard, Fidelity, Schwab)<br>
+                        <strong>Week 2:</strong> Set up automatic $50-200/month transfer<br>
+                        <strong>Week 3:</strong> Buy first index fund (S&P 500)<br>
+                        <strong>Week 4:</strong> Increase income with side hustle from this toolkit<br>
+                        <strong>Month 2+:</strong> Never stop. Consistency is everything.<br><br>
+                        <strong>Remember:</strong> The best time to start was 10 years ago. The second best time is TODAY!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function calculate() {
+            const principal = parseFloat(document.getElementById('principal').value) || 0;
+            const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+            const rate = parseFloat(document.getElementById('rate').value) / 100 || 0;
+            const years = parseFloat(document.getElementById('years').value) || 0;
+
+            const monthlyRate = rate / 12;
+            const months = years * 12;
+
+            // Calculate future value with compound interest
+            let balance = principal;
+            const yearByYear = [];
+            let totalInvested = principal;
+
+            for (let year = 1; year <= years; year++) {
+                for (let month = 1; month <= 12; month++) {
+                    balance = balance * (1 + monthlyRate) + monthly;
+                    totalInvested += monthly;
+                }
+                yearByYear.push({
+                    year: year,
+                    balance: balance,
+                    invested: totalInvested
+                });
+            }
+
+            const finalAmount = balance;
+            const earnings = finalAmount - totalInvested;
+            const growthMultiple = (finalAmount / totalInvested).toFixed(1);
+
+            // Display results
+            document.getElementById('finalAmount').textContent = `$${finalAmount.toFixed(0).toLocaleString()}`;
+            document.getElementById('growth').textContent = growthMultiple;
+            document.getElementById('totalInvested').textContent = `$${totalInvested.toFixed(0).toLocaleString()}`;
+            document.getElementById('earnings').textContent = `$${earnings.toFixed(0).toLocaleString()}`;
+            document.getElementById('finalBalance').textContent = `$${finalAmount.toFixed(0).toLocaleString()}`;
+
+            // Year by year breakdown
+            const yearByYearHTML = yearByYear.map(y => `
+                <div class="year-row">
+                    <strong>Year ${y.year}</strong>
+                    <span>Invested: $${y.invested.toFixed(0).toLocaleString()}</span>
+                    <span style="color: #11998e; font-weight: bold;">Balance: $${y.balance.toFixed(0).toLocaleString()}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('yearByYear').innerHTML = '<h3 style="color: #667eea; margin-bottom: 15px;">📊 Year-by-Year Growth</h3>' + yearByYearHTML;
+
+            // Interpretation
+            let interpretation = '';
+            if (finalAmount >= 1000000) {
+                interpretation = `🎉 Congratulations! You'll be a MILLIONAIRE! Your disciplined ${monthly > 0 ? monthly + '/month investment' : 'investment'} will grow to over $${(finalAmount/1000000).toFixed(1)}M. This is life-changing wealth!`;
+            } else if (finalAmount >= 500000) {
+                interpretation = `💎 Excellent! You're on track for serious wealth. $${(finalAmount/1000).toFixed(0)}K gives you financial freedom and security. Keep this up!`;
+            } else if (finalAmount >= 100000) {
+                interpretation = `📈 Great start! $${(finalAmount/1000).toFixed(0)}K is solid. To reach $1M, consider increasing monthly contributions or extending time horizon.`;
+            } else {
+                interpretation = `🌱 You're building wealth! Every dollar counts. Consider increasing monthly investments - even $50 more per month makes a huge difference over time.`;
+            }
+
+            document.getElementById('interpretation').textContent = interpretation;
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function loadScenario(scenario) {
+            const scenarios = {
+                teen: { principal: 0, monthly: 100, rate: 10, years: 50 },
+                late: { principal: 0, monthly: 100, rate: 10, years: 30 },
+                aggressive: { principal: 0, monthly: 500, rate: 10, years: 25 },
+                millionaire: { principal: 0, monthly: 400, rate: 10, years: 35 },
+                retirement: { principal: 0, monthly: 350, rate: 10, years: 30 },
+                debt: { principal: 0, monthly: 200, rate: 10, years: 40 }
+            };
+
+            const s = scenarios[scenario];
+            if (s) {
+                document.getElementById('principal').value = s.principal;
+                document.getElementById('monthly').value = s.monthly;
+                document.getElementById('rate').value = s.rate;
+                document.getElementById('years').value = s.years;
+
+                // Switch to calculator tab
+                switchTab('calculator');
+                document.getElementById('calculator').classList.add('active');
+                document.querySelectorAll('.tab')[0].classList.add('active');
+
+                // Automatically calculate
+                setTimeout(() => calculate(), 100);
+            }
+        }
+    </script>
+</body>
+</html>
