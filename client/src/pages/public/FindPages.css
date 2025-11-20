@@ -1,0 +1,150 @@
+.find-page {
+  padding: 40px 0;
+  min-height: calc(100vh - 200px);
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--dark-text);
+}
+
+.page-header p {
+  font-size: 18px;
+  color: var(--gray-text);
+}
+
+.search-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  margin-bottom: 40px;
+}
+
+.search-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.filter-options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--gray-text);
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.result-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.doctor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 10px;
+}
+
+.doctor-header h3 {
+  font-size: 20px;
+  color: var(--dark-text);
+  margin: 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--warning-color);
+  font-weight: 600;
+}
+
+.specialty,
+.facility-type {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.location,
+.contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-text);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.doctor-tags,
+.hospital-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.result-card .btn {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--gray-text);
+}
+
+.no-results p {
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .search-form .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+  }
+}

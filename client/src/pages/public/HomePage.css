@@ -1,0 +1,207 @@
+.home-page {
+  width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 20px;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Features Section */
+.features {
+  padding: 80px 0;
+  background-color: white;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: var(--dark-text);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  padding: 30px;
+  text-align: center;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background-color: var(--light-bg);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  font-size: 48px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--dark-text);
+}
+
+.feature-card p {
+  color: var(--gray-text);
+  line-height: 1.6;
+}
+
+/* How It Works */
+.how-it-works {
+  padding: 80px 0;
+  background-color: var(--light-bg);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.step {
+  text-align: center;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 auto 20px;
+}
+
+.step h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: var(--dark-text);
+}
+
+.step p {
+  color: var(--gray-text);
+}
+
+/* Stats Section */
+.stats {
+  padding: 60px 0;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.stat h3 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stat p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* CTA Section */
+.cta {
+  padding: 80px 0;
+  text-align: center;
+  background-color: white;
+}
+
+.cta h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  color: var(--dark-text);
+}
+
+.cta p {
+  font-size: 18px;
+  color: var(--gray-text);
+  margin-bottom: 30px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 0;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .features,
+  .how-it-works,
+  .cta {
+    padding: 50px 0;
+  }
+
+  .stat h3 {
+    font-size: 36px;
+  }
+}
