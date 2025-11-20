@@ -76,6 +76,14 @@ A comprehensive healthcare management system designed for GPs, hospitals, and pa
 - **JWT** - Authentication
 - **bcryptjs** - Password hashing
 
+### Frontend
+- **React 18** - UI framework
+- **React Router** - Client-side routing
+- **Axios** - HTTP client
+- **Context API** - State management
+- **React Toastify** - Notifications
+- **React Icons** - Icon library
+
 ### Security
 - **Helmet** - Security headers
 - **express-rate-limit** - Rate limiting
@@ -89,7 +97,7 @@ A comprehensive healthcare management system designed for GPs, hospitals, and pa
 - MongoDB (v4.4 or higher)
 - npm or yarn
 
-### Setup
+### Backend Setup
 
 1. Clone the repository:
 ```bash
@@ -97,7 +105,7 @@ git clone <repository-url>
 cd bimi-assets
 ```
 
-2. Install dependencies:
+2. Install backend dependencies:
 ```bash
 npm install
 ```
@@ -120,10 +128,6 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your_email@gmail.com
 SMTP_PASSWORD=your_password
-
-# Medicare API (Mock)
-MEDICARE_API_KEY=mock_medicare_api_key
-MEDICARE_API_URL=https://api.medicare.gov.au/v1
 ```
 
 5. Start MongoDB:
@@ -131,7 +135,12 @@ MEDICARE_API_URL=https://api.medicare.gov.au/v1
 mongod
 ```
 
-6. Run the application:
+6. Seed the database (optional):
+```bash
+node src/database/seed.js -i
+```
+
+7. Start the backend server:
 ```bash
 # Development
 npm run dev
@@ -141,6 +150,54 @@ npm start
 ```
 
 The API will be available at `http://localhost:5000`
+
+### Frontend Setup
+
+1. Navigate to client directory:
+```bash
+cd client
+```
+
+2. Install frontend dependencies:
+```bash
+npm install
+```
+
+3. Create frontend .env file:
+```bash
+cp .env.example .env
+```
+
+4. Configure the API URL in client/.env:
+```env
+REACT_APP_API_URL=http://localhost:5000
+```
+
+5. Start the frontend development server:
+```bash
+npm start
+```
+
+The React app will be available at `http://localhost:3000`
+
+### Quick Start (Both Backend & Frontend)
+
+**Terminal 1 - Backend:**
+```bash
+# From project root
+npm install
+npm run dev
+```
+
+**Terminal 2 - Frontend:**
+```bash
+# From project root
+cd client
+npm install
+npm start
+```
+
+Access the application at `http://localhost:3000`
 
 ## API Endpoints
 
